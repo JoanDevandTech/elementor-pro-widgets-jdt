@@ -61,10 +61,18 @@
     color: #333;
     cursor: pointer;
     transition: var(--orbit-tabs-transition);
-    text-align: left;
     box-shadow: none;
     white-space: normal;
     word-wrap: break-word;
+}
+
+/* Text alignment based on column */
+.orbit-tabs-left .orbit-tab-button {
+    text-align: left;
+}
+
+.orbit-tabs-right .orbit-tab-button {
+    text-align: right;
 }
 
 .orbit-tab-button:hover {
@@ -161,31 +169,39 @@
     max-width: 320px;
 }
 
-/* Individual rotation classes for stacked effect */
+/* Cylindrical carousel effect - 3 images visible */
+/* Left image */
 .orbit-polaroid:nth-child(1) {
-    transform: translate(-50%, -50%) rotate(-8deg);
-    z-index: 3;
-}
-
-.orbit-polaroid:nth-child(2) {
-    transform: translate(-50%, -50%) rotate(5deg);
-    z-index: 2;
-}
-
-.orbit-polaroid:nth-child(3) {
-    transform: translate(-50%, -50%) rotate(-3deg);
+    transform: translate(-50%, -50%) translateX(-120%) rotate(-15deg);
     z-index: 1;
+    opacity: 0.7;
 }
 
-.orbit-polaroid:nth-child(4) {
-    transform: translate(-50%, -50%) rotate(10deg);
-    z-index: 4;
+/* Center image (active) */
+.orbit-polaroid:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(0deg);
+    z-index: 3;
+    opacity: 1;
 }
 
-/* Hover effect - bring to front and scale */
-.orbit-polaroid:hover {
-    transform: translate(-50%, -50%) rotate(0deg) scale(1.08);
-    z-index: 10 !important;
+/* Right image */
+.orbit-polaroid:nth-child(3) {
+    transform: translate(-50%, -50%) translateX(120%) rotate(15deg);
+    z-index: 1;
+    opacity: 0.7;
+}
+
+/* Hide additional images beyond the 3 visible */
+.orbit-polaroid:nth-child(n+4) {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Hover effect - pop effect for center image only */
+.orbit-polaroid:nth-child(2):hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    z-index: 10;
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
 }
 
@@ -313,13 +329,15 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 0.75rem;
+        justify-content: center;
     }
 
     .orbit-tab-button {
-        flex: 1 1 auto;
-        text-align: center;
+        flex: 0 1 auto;
+        text-align: center !important;
         padding: 0.875rem 1rem;
         font-size: 0.9rem;
+        min-width: fit-content;
     }
 
     .orbit-tab-button:hover,

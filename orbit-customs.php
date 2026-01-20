@@ -4,7 +4,7 @@
  * Plugin URI: https://joandev.com/orbit-customs
  * Description: Custom visual components including Polaroid Tabs with stunning animations and Elementor integration
  * Author: Joan Dev & Tech
- * Version: 1.0.5
+ * Version: 1.1.0
  * Author URI: https://joandev.com
  * Text Domain: orbit-customs
  * License: GPLv2 or later
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('ORBIT_CUSTOMS_VERSION', '1.0.5');
+define('ORBIT_CUSTOMS_VERSION', '1.1.0');
 define('ORBIT_CUSTOMS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('ORBIT_CUSTOMS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -30,11 +30,15 @@ define('ORBIT_CUSTOMS_PLUGIN_URL', plugin_dir_url(__FILE__));
  */
 class Orbit_Customs
 {
-
     /**
      * Instance of this class
      */
     private static $instance = null;
+
+    /**
+     * Array of registered widgets
+     */
+    private $widgets = array();
 
     /**
      * Get instance
@@ -53,6 +57,7 @@ class Orbit_Customs
     private function __construct()
     {
         $this->init_hooks();
+        $this->register_widgets();
     }
 
     /**
@@ -65,7 +70,36 @@ class Orbit_Customs
         add_action('elementor/frontend/after_register_scripts', array($this, 'register_assets'));
         add_action('elementor/editor/before_enqueue_scripts', array($this, 'register_assets'));
         add_action('elementor/widgets/register', array($this, 'register_elementor_widgets'));
-        add_shortcode('orbit_tabs', array($this, 'orbit_tabs_shortcode'));
+    }
+
+    /**
+     * Register available widgets
+     */
+    private function register_widgets()
+    {
+        // Register Orbit Tabs widget
+        $this->widgets['orbit-tabs'] = array(
+            'name' => 'Orbit Tabs',
+            'class' => 'Elementor_Orbit_Tabs_Widget',
+            'file' => 'widgets/orbit-tabs/elementor-widget.php',
+            'shortcode' => 'orbit_tabs',
+            'shortcode_handler' => 'widgets/orbit-tabs/shortcode-handler.php',
+            'assets' => array(
+                'css' => 'widgets/orbit-tabs/assets/orbit-tabs.css',
+                'js' => 'widgets/orbit-tabs/assets/orbit-tabs.js',
+            ),
+        );
+
+        // Register shortcodes for each widget
+        foreach ($this->widgets as $widget_id => $widget_config) {
+            if (isset($widget_config['shortcode']) && isset($widget_config['shortcode_handler'])) {
+                $handler_file = ORBIT_CUSTOMS_PLUGIN_DIR . 'includes/' . $widget_config['shortcode_handler'];
+                if (file_exists($handler_file)) {
+                    require_once $handler_file;
+                    add_shortcode($widget_config['shortcode'], 'orbit_customs_' . str_replace('-', '_', $widget_id) . '_shortcode');
+                }
+            }
+        }
     }
 
     /**
@@ -77,24 +111,34 @@ class Orbit_Customs
     }
 
     /**
-     * Register assets (but don't enqueue yet)
+     * Register assets for all widgets
      */
     public function register_assets()
     {
-        wp_register_style(
-            'orbit-tabs',
-            ORBIT_CUSTOMS_PLUGIN_URL . 'assets/css/orbit-tabs.css',
-            array(),
-            ORBIT_CUSTOMS_VERSION
-        );
+        foreach ($this->widgets as $widget_id => $widget_config) {
+            if (isset($widget_config['assets'])) {
+                // Register CSS
+                if (isset($widget_config['assets']['css'])) {
+                    wp_register_style(
+                        $widget_id,
+                        ORBIT_CUSTOMS_PLUGIN_URL . 'includes/' . $widget_config['assets']['css'],
+                        array(),
+                        ORBIT_CUSTOMS_VERSION
+                    );
+                }
 
-        wp_register_script(
-            'orbit-tabs',
-            ORBIT_CUSTOMS_PLUGIN_URL . 'assets/js/orbit-tabs.js',
-            array('jquery'),
-            ORBIT_CUSTOMS_VERSION,
-            true
-        );
+                // Register JS
+                if (isset($widget_config['assets']['js'])) {
+                    wp_register_script(
+                        $widget_id,
+                        ORBIT_CUSTOMS_PLUGIN_URL . 'includes/' . $widget_config['assets']['js'],
+                        array('jquery'),
+                        ORBIT_CUSTOMS_VERSION,
+                        true
+                    );
+                }
+            }
+        }
     }
 
     /**
@@ -106,22 +150,26 @@ class Orbit_Customs
             return;
         }
 
-        require_once ORBIT_CUSTOMS_PLUGIN_DIR . 'includes/elementor-widget.php';
-        $widgets_manager->register(new \Orbit_Customs\Elementor_Orbit_Tabs_Widget());
+        foreach ($this->widgets as $widget_id => $widget_config) {
+            $widget_file = ORBIT_CUSTOMS_PLUGIN_DIR . 'includes/' . $widget_config['file'];
+
+            if (file_exists($widget_file)) {
+                require_once $widget_file;
+
+                $class_name = '\\Orbit_Customs\\' . $widget_config['class'];
+                if (class_exists($class_name)) {
+                    $widgets_manager->register(new $class_name());
+                }
+            }
+        }
     }
 
     /**
-     * Orbit Tabs Shortcode
+     * Get registered widgets
      */
-    public function orbit_tabs_shortcode($atts)
+    public function get_widgets()
     {
-        // Enqueue assets only when shortcode is used
-        wp_enqueue_style('orbit-tabs');
-        wp_enqueue_script('orbit-tabs');
-
-        // Include shortcode handler
-        require_once ORBIT_CUSTOMS_PLUGIN_DIR . 'includes/shortcode-handler.php';
-        return orbit_customs_render_tabs($atts);
+        return $this->widgets;
     }
 }
 

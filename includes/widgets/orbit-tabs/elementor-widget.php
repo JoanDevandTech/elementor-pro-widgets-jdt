@@ -90,10 +90,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
             )
         );
 
-        // Main Tabs Repeater
-        $tabs_repeater = new \Elementor\Repeater();
+        // Left Tabs Repeater
+        $left_tabs_repeater = new \Elementor\Repeater();
 
-        $tabs_repeater->add_control(
+        $left_tabs_repeater->add_control(
             'tab_title',
             array(
                 'label' => __('Tab Title', 'orbit-customs'),
@@ -106,43 +106,178 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
             )
         );
 
-        // Images Repeater inside each Tab
-        $tabs_repeater->add_control(
-            'images_list',
+        $left_tabs_repeater->add_control(
+            'tab_image',
             array(
-                'label' => __('Images', 'orbit-customs'),
-                'type' => \Elementor\Controls_Manager::REPEATER,
-                'fields' => $this->get_image_repeater_controls(),
+                'label' => __('Image', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::MEDIA,
                 'default' => array(
-                    array(
-                        'image' => array(
-                            'url' => \Elementor\Utils::get_placeholder_image_src(),
-                        ),
-                        'cta_text' => __('View More', 'orbit-customs'),
-                    ),
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
                 ),
-                'title_field' => '{{{ cta_text }}}',
+                'dynamic' => array(
+                    'active' => true,
+                ),
+            )
+        );
+
+        $left_tabs_repeater->add_control(
+            'cta_text',
+            array(
+                'label' => __('CTA Button Text', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __('View More', 'orbit-customs'),
+                'dynamic' => array(
+                    'active' => true,
+                ),
+            )
+        );
+
+        $left_tabs_repeater->add_control(
+            'cta_link',
+            array(
+                'label' => __('CTA Button Link', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::URL,
+                'placeholder' => __('https://your-link.com', 'orbit-customs'),
+                'default' => array(
+                    'url' => '#',
+                ),
+                'dynamic' => array(
+                    'active' => true,
+                ),
+            )
+        );
+
+        $left_tabs_repeater->add_control(
+            'cta_position',
+            array(
+                'label' => __('CTA Button Position', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'options' => array(
+                    'top-left' => __('Top Left', 'orbit-customs'),
+                    'top-center' => __('Top Center', 'orbit-customs'),
+                    'top-right' => __('Top Right', 'orbit-customs'),
+                    'center-left' => __('Center Left', 'orbit-customs'),
+                    'center-center' => __('Center Center', 'orbit-customs'),
+                    'center-right' => __('Center Right', 'orbit-customs'),
+                    'bottom-left' => __('Bottom Left', 'orbit-customs'),
+                    'bottom-center' => __('Bottom Center', 'orbit-customs'),
+                    'bottom-right' => __('Bottom Right', 'orbit-customs'),
+                ),
+                'default' => 'center-right',
             )
         );
 
         $this->add_control(
-            'tabs',
+            'left_tabs',
             array(
-                'label' => __('Tabs', 'orbit-customs'),
+                'label' => __('Left Column Tabs', 'orbit-customs'),
                 'type' => \Elementor\Controls_Manager::REPEATER,
-                'fields' => $tabs_repeater->get_controls(),
+                'fields' => $left_tabs_repeater->get_controls(),
                 'default' => array(
                     array(
                         'tab_title' => __('Creative Design', 'orbit-customs'),
+                        'cta_text' => __('View More', 'orbit-customs'),
                     ),
                     array(
                         'tab_title' => __('Development', 'orbit-customs'),
+                        'cta_text' => __('View More', 'orbit-customs'),
                     ),
+                ),
+                'title_field' => '{{{ tab_title }}}',
+            )
+        );
+
+        // Right Tabs Repeater
+        $right_tabs_repeater = new \Elementor\Repeater();
+
+        $right_tabs_repeater->add_control(
+            'tab_title',
+            array(
+                'label' => __('Tab Title', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __('Tab Title', 'orbit-customs'),
+                'label_block' => true,
+                'dynamic' => array(
+                    'active' => true,
+                ),
+            )
+        );
+
+        $right_tabs_repeater->add_control(
+            'tab_image',
+            array(
+                'label' => __('Image', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::MEDIA,
+                'default' => array(
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ),
+                'dynamic' => array(
+                    'active' => true,
+                ),
+            )
+        );
+
+        $right_tabs_repeater->add_control(
+            'cta_text',
+            array(
+                'label' => __('CTA Button Text', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __('View More', 'orbit-customs'),
+                'dynamic' => array(
+                    'active' => true,
+                ),
+            )
+        );
+
+        $right_tabs_repeater->add_control(
+            'cta_link',
+            array(
+                'label' => __('CTA Button Link', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::URL,
+                'placeholder' => __('https://your-link.com', 'orbit-customs'),
+                'default' => array(
+                    'url' => '#',
+                ),
+                'dynamic' => array(
+                    'active' => true,
+                ),
+            )
+        );
+
+        $right_tabs_repeater->add_control(
+            'cta_position',
+            array(
+                'label' => __('CTA Button Position', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'options' => array(
+                    'top-left' => __('Top Left', 'orbit-customs'),
+                    'top-center' => __('Top Center', 'orbit-customs'),
+                    'top-right' => __('Top Right', 'orbit-customs'),
+                    'center-left' => __('Center Left', 'orbit-customs'),
+                    'center-center' => __('Center Center', 'orbit-customs'),
+                    'center-right' => __('Center Right', 'orbit-customs'),
+                    'bottom-left' => __('Bottom Left', 'orbit-customs'),
+                    'bottom-center' => __('Bottom Center', 'orbit-customs'),
+                    'bottom-right' => __('Bottom Right', 'orbit-customs'),
+                ),
+                'default' => 'center-right',
+            )
+        );
+
+        $this->add_control(
+            'right_tabs',
+            array(
+                'label' => __('Right Column Tabs', 'orbit-customs'),
+                'type' => \Elementor\Controls_Manager::REPEATER,
+                'fields' => $right_tabs_repeater->get_controls(),
+                'default' => array(
                     array(
                         'tab_title' => __('Marketing', 'orbit-customs'),
+                        'cta_text' => __('View More', 'orbit-customs'),
                     ),
                     array(
                         'tab_title' => __('Photography', 'orbit-customs'),
+                        'cta_text' => __('View More', 'orbit-customs'),
                     ),
                 ),
                 'title_field' => '{{{ tab_title }}}',
@@ -672,22 +807,52 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $settings = $this->get_settings_for_display();
         $container_id = 'orbit-tabs-' . $this->get_id();
 
-        if (empty($settings['tabs'])) {
+        // Check if we have any tabs
+        $has_left_tabs = !empty($settings['left_tabs']);
+        $has_right_tabs = !empty($settings['right_tabs']);
+
+        if (!$has_left_tabs && !$has_right_tabs) {
             return;
         }
 
         $overlay_class = ('yes' === $settings['enable_overlay']) ? 'has-overlay' : '';
+
+        // Merge all tabs for central stage rendering
+        $all_tabs = array();
+        $tab_index = 0;
+
+        if ($has_left_tabs) {
+            foreach ($settings['left_tabs'] as $tab) {
+                $all_tabs[] = array(
+                    'data' => $tab,
+                    'side' => 'left',
+                    'index' => $tab_index++
+                );
+            }
+        }
+
+        if ($has_right_tabs) {
+            foreach ($settings['right_tabs'] as $tab) {
+                $all_tabs[] = array(
+                    'data' => $tab,
+                    'side' => 'right',
+                    'index' => $tab_index++
+                );
+            }
+        }
         ?>
         <div class="orbit-tabs-container" id="<?php echo esc_attr($container_id); ?>">
             <div class="orbit-tabs-wrapper">
 
-                <!-- Left Column (Odd Tabs) -->
+                <!-- Left Column -->
                 <div class="orbit-tabs-left" role="tablist"
                     aria-label="<?php esc_attr_e('Orbit Tabs Navigation', 'orbit-customs'); ?>">
                     <?php
-                    foreach ($settings['tabs'] as $index => $tab) {
-                        if ($index % 2 === 0) {
-                            $this->render_tab_button($tab, $index, $container_id);
+                    if ($has_left_tabs) {
+                        foreach ($all_tabs as $tab_info) {
+                            if ($tab_info['side'] === 'left') {
+                                $this->render_tab_button($tab_info['data'], $tab_info['index'], $container_id);
+                            }
                         }
                     }
                     ?>
@@ -696,19 +861,21 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
                 <!-- Central Stage -->
                 <div class="orbit-tabs-stage <?php echo esc_attr($overlay_class); ?>">
                     <?php
-                    foreach ($settings['tabs'] as $index => $tab) {
-                        $this->render_tab_content($tab, $index, $container_id);
+                    foreach ($all_tabs as $tab_info) {
+                        $this->render_tab_content($tab_info['data'], $tab_info['index'], $container_id);
                     }
                     ?>
                 </div>
 
-                <!-- Right Column (Even Tabs) -->
+                <!-- Right Column -->
                 <div class="orbit-tabs-right" role="tablist"
                     aria-label="<?php esc_attr_e('Orbit Tabs Navigation', 'orbit-customs'); ?>">
                     <?php
-                    foreach ($settings['tabs'] as $index => $tab) {
-                        if ($index % 2 !== 0) {
-                            $this->render_tab_button($tab, $index, $container_id);
+                    if ($has_right_tabs) {
+                        foreach ($all_tabs as $tab_info) {
+                            if ($tab_info['side'] === 'right') {
+                                $this->render_tab_button($tab_info['data'], $tab_info['index'], $container_id);
+                            }
                         }
                     }
                     ?>
@@ -746,10 +913,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
             aria-labelledby="<?php echo esc_attr($button_id); ?>" aria-hidden="true">
             <div class="orbit-polaroid-stack">
                 <?php
-                if (!empty($tab['images_list'])) {
-                    foreach ($tab['images_list'] as $img_index => $image_data) {
-                        $this->render_polaroid($image_data, $img_index);
-                    }
+                // Render single image for this tab
+                if (!empty($tab['tab_image']['url'])) {
+                    $this->render_polaroid($tab);
                 }
                 ?>
             </div>
@@ -760,26 +926,26 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
     /**
      * Render polaroid image
      */
-    private function render_polaroid($image_data, $index)
+    private function render_polaroid($tab)
     {
-        if (empty($image_data['image']['url'])) {
+        if (empty($tab['tab_image']['url'])) {
             return;
         }
 
-        $cta_position = !empty($image_data['cta_position']) ? $image_data['cta_position'] : 'center-right';
+        $cta_position = !empty($tab['cta_position']) ? $tab['cta_position'] : 'center-right';
         $polaroid_class = 'orbit-polaroid cta-position-' . esc_attr($cta_position);
         ?>
         <div class="<?php echo esc_attr($polaroid_class); ?>">
-            <img decoding="async" src="<?php echo esc_url($image_data['image']['url']); ?>"
-                alt="<?php echo esc_attr($image_data['image']['alt'] ?? ''); ?>" loading="lazy">
-            <?php if (!empty($image_data['cta_text']) && !empty($image_data['cta_link']['url'])): ?>
+            <img decoding="async" src="<?php echo esc_url($tab['tab_image']['url']); ?>"
+                alt="<?php echo esc_attr($tab['tab_image']['alt'] ?? ''); ?>" loading="lazy">
+            <?php if (!empty($tab['cta_text']) && !empty($tab['cta_link']['url'])): ?>
                 <?php
-                $target = !empty($image_data['cta_link']['is_external']) ? 'target="_blank"' : '';
-                $nofollow = !empty($image_data['cta_link']['nofollow']) ? 'rel="nofollow"' : '';
+                $target = !empty($tab['cta_link']['is_external']) ? 'target="_blank"' : '';
+                $nofollow = !empty($tab['cta_link']['nofollow']) ? 'rel="nofollow"' : '';
                 ?>
-                <a href="<?php echo esc_url($image_data['cta_link']['url']); ?>" class="orbit-polaroid-cta" <?php echo $target; ?>
+                <a href="<?php echo esc_url($tab['cta_link']['url']); ?>" class="orbit-polaroid-cta" <?php echo $target; ?>
                     <?php echo $nofollow; ?>>
-                    <?php echo esc_html($image_data['cta_text']); ?>
+                    <?php echo esc_html($tab['cta_text']); ?>
                 </a>
             <?php endif; ?>
         </div>
