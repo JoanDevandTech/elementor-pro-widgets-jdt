@@ -168,9 +168,9 @@
 		initEpwTabs();
 	}
 
-	// Elementor support - keep 'orbit-tabs' to match get_name()
+	// Elementor support
 	if (typeof window.elementorFrontend !== 'undefined' && window.elementorFrontend.hooks) {
-		window.elementorFrontend.hooks.addAction('frontend/element_ready/orbit-tabs.default', function ($scope) {
+		window.elementorFrontend.hooks.addAction('frontend/element_ready/jdt-tabs.default', function ($scope) {
 			const container = $scope[0].querySelector('.epw-tabs-container');
 			if (container) {
 				new EpwTabsController(container);
@@ -181,7 +181,7 @@
 	if (typeof jQuery !== 'undefined') {
 		jQuery(window).on('elementor/frontend/init', function () {
 			if (typeof elementorFrontend !== 'undefined') {
-				elementorFrontend.hooks.addAction('frontend/element_ready/orbit-tabs.default', function ($scope) {
+				elementorFrontend.hooks.addAction('frontend/element_ready/jdt-tabs.default', function ($scope) {
 					const container = $scope[0].querySelector('.epw-tabs-container');
 					if (container) {
 						new EpwTabsController(container);

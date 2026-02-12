@@ -19,7 +19,7 @@
 - **Accessibility First**: ARIA attributes, keyboard navigation, reduced motion support
 - **Performance Optimized**: Assets registered on-demand, loaded only when needed
 - **Elementor Integration**: Drag-and-drop widgets with full visual controls
-- **Shortcode Support**: Use `[orbit_tabs]` and `[zoom_gallery]` outside of Elementor
+- **Shortcode Support**: Use `[jdt_tabs]` and `[zoom_gallery]` outside of Elementor
 
 ---
 
@@ -48,7 +48,7 @@
 
 #### Method 2: Shortcode
 
-Use the shortcode `[orbit_tabs]` in any post, page, or text widget. Note: the shortcode uses default configuration. For full customization, use the Elementor widget.
+Use the shortcode `[jdt_tabs]` in any post, page, or text widget. Note: the shortcode uses default configuration. For full customization, use the Elementor widget.
 
 ### Custom Zoom Gallery
 
@@ -151,19 +151,19 @@ The widget uses **separate repeaters** for left and right columns:
 
 ```
 epw-jdt/
-├── orbit-customs.php                    # Main plugin file (singleton, widget registry)
+├── epw-jdt.php                          # Main plugin file (singleton, widget registry)
 ├── README.md                            # This file
 ├── changelog.md                         # Version history
 ├── demo.html                            # Local testing demo
 ├── .gitignore                           # Git ignore rules
 └── includes/
     └── widgets/                         # All custom widgets
-        ├── orbit-tabs/                  # Polaroid Tabs widget
+        ├── jdt-tabs/                    # Polaroid Tabs widget
         │   ├── elementor-widget.php     # Elementor integration & controls
         │   ├── shortcode-handler.php    # Shortcode rendering
         │   └── assets/
-        │       ├── orbit-tabs.css       # Widget styles
-        │       └── orbit-tabs.js        # Tab navigation & GSAP animations
+        │       ├── jdt-tabs.css         # Widget styles
+        │       └── jdt-tabs.js          # Tab navigation & GSAP animations
         └── zoom-gallery/               # Custom Zoom Gallery widget
             ├── elementor-widget.php     # Elementor integration & controls
             ├── shortcode-handler.php    # Shortcode rendering
@@ -182,7 +182,7 @@ epw-jdt/
 
 ### Adding a New Widget
 
-To add a new widget, create its folder under `includes/widgets/` and register it in `orbit-customs.php`:
+To add a new widget, create its folder under `includes/widgets/` and register it in `epw-jdt.php`:
 
 ```php
 $this->widgets['new-widget-id'] = array(

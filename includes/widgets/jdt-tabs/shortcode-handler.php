@@ -15,11 +15,11 @@ if (!defined('ABSPATH')) {
  * @param array $atts Shortcode attributes
  * @return string HTML output
  */
-function epw_jdt_orbit_tabs_shortcode($atts)
+function epw_jdt_jdt_tabs_shortcode($atts)
 {
     // Enqueue assets
-    wp_enqueue_style('orbit-tabs');
-    wp_enqueue_script('orbit-tabs');
+    wp_enqueue_style('jdt-tabs');
+    wp_enqueue_script('jdt-tabs');
 
     // Parse attributes with defaults
     $atts = shortcode_atts(
@@ -27,7 +27,7 @@ function epw_jdt_orbit_tabs_shortcode($atts)
             'id' => 'epw-tabs-' . uniqid(),
         ),
         $atts,
-        'orbit_tabs'
+        'jdt_tabs'
     );
 
     // Generate unique ID for this instance

@@ -181,6 +181,134 @@
 }
 
 /* ========================================
+   CTA POSITION VARIANTS
+   ======================================== */
+
+/* Top Left */
+.cta-position-top-left .epw-polaroid-cta {
+    top: -10px;
+    left: -10px;
+    bottom: auto;
+    right: auto;
+    transform: rotate(-8deg);
+}
+.cta-position-top-left .epw-polaroid-cta:hover {
+    transform: rotate(0deg) scale(1.1);
+}
+
+/* Top Center */
+.cta-position-top-center .epw-polaroid-cta {
+    top: -10px;
+    left: 50%;
+    bottom: auto;
+    right: auto;
+    transform: translateX(-50%) rotate(-4deg);
+}
+.cta-position-top-center .epw-polaroid-cta:hover {
+    transform: translateX(-50%) rotate(0deg) scale(1.1);
+}
+
+/* Top Right */
+.cta-position-top-right .epw-polaroid-cta {
+    top: -10px;
+    right: -10px;
+    bottom: auto;
+    left: auto;
+    transform: rotate(8deg);
+}
+.cta-position-top-right .epw-polaroid-cta:hover {
+    transform: rotate(0deg) scale(1.1);
+}
+
+/* Center Left */
+.cta-position-center-left .epw-polaroid-cta {
+    top: 50%;
+    left: -10px;
+    bottom: auto;
+    right: auto;
+    transform: translateY(-50%) rotate(-6deg);
+}
+.cta-position-center-left .epw-polaroid-cta:hover {
+    transform: translateY(-50%) rotate(0deg) scale(1.1);
+}
+
+/* Center Center */
+.cta-position-center-center .epw-polaroid-cta {
+    top: 50%;
+    left: 50%;
+    bottom: auto;
+    right: auto;
+    transform: translate(-50%, -50%);
+}
+.cta-position-center-center .epw-polaroid-cta:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Center Right */
+.cta-position-center-right .epw-polaroid-cta {
+    top: 50%;
+    right: -10px;
+    bottom: auto;
+    left: auto;
+    transform: translateY(-50%) rotate(6deg);
+}
+.cta-position-center-right .epw-polaroid-cta:hover {
+    transform: translateY(-50%) rotate(0deg) scale(1.1);
+}
+
+/* Bottom Left */
+.cta-position-bottom-left .epw-polaroid-cta {
+    bottom: -10px;
+    left: -10px;
+    top: auto;
+    right: auto;
+    transform: rotate(-8deg);
+}
+.cta-position-bottom-left .epw-polaroid-cta:hover {
+    transform: rotate(0deg) scale(1.1);
+}
+
+/* Bottom Center */
+.cta-position-bottom-center .epw-polaroid-cta {
+    bottom: -10px;
+    left: 50%;
+    top: auto;
+    right: auto;
+    transform: translateX(-50%) rotate(4deg);
+}
+.cta-position-bottom-center .epw-polaroid-cta:hover {
+    transform: translateX(-50%) rotate(0deg) scale(1.1);
+}
+
+/* Bottom Right (default - matches base .epw-polaroid-cta) */
+.cta-position-bottom-right .epw-polaroid-cta {
+    bottom: -10px;
+    right: -10px;
+    top: auto;
+    left: auto;
+}
+
+/* ========================================
+   VIGNETTE OVERLAY
+   ======================================== */
+.epw-tabs-stage.has-overlay {
+    position: relative;
+}
+
+.epw-tabs-stage.has-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+    pointer-events: none;
+    z-index: 4;
+    border-radius: inherit;
+}
+
+/* ========================================
    RESPONSIVE - TABLET/MOBILE
    ======================================== */
 

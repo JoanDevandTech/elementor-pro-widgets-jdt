@@ -4,17 +4,22 @@
 
 ### Version 1.3.0 (2026-02-12)
 
-**BREAKING: Plugin Rename**
+**BREAKING: Full Rebrand from Orbit to JDT**
 - Plugin renamed from "Orbit Customs" to "Elementor Pro Widgets JDT"
-- Class: `Orbit_Customs` → `EPW_JDT`
+- Main file: `orbit-customs.php` → `epw-jdt.php`
+- Widget directory: `orbit-tabs/` → `jdt-tabs/`
+- Asset files: `orbit-tabs.css`/`.js` → `jdt-tabs.css`/`.js`
+- Class: `Orbit_Customs` → `EPW_JDT`, `Elementor_Orbit_Tabs_Widget` → `Elementor_JDT_Tabs_Widget`
 - Namespace: `Orbit_Customs` → `EPW_JDT`
 - Constants: `ORBIT_CUSTOMS_*` → `EPW_JDT_*`
 - Text domain: `orbit-customs` → `epw-jdt`
 - Functions: `orbit_customs_*` → `epw_jdt_*`
 - CSS classes: `.orbit-*` → `.epw-*`
 - CSS variables: `--orbit-*` → `--epw-*`
+- Widget name: `orbit-tabs` → `jdt-tabs`
+- Shortcode: `[orbit_tabs]` → `[jdt_tabs]`
 - Widget title: "Orbit Polaroid Tabs" → "Polaroid Tabs"
-- Note: `get_name()` still returns `'orbit-tabs'` and shortcode `[orbit_tabs]` is preserved for backward compatibility
+- **Note**: Requires plugin reactivation in WordPress after update
 
 **NEW: Custom Zoom Gallery Widget**
 - Scroll-driven zoom/fade gallery powered by GSAP ScrollTrigger

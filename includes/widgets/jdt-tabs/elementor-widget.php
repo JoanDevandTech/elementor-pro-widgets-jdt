@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 /**
  * Elementor Polaroid Tabs Widget Class
  */
-class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
+class Elementor_JDT_Tabs_Widget extends \Elementor\Widget_Base
 {
 
     /**
@@ -22,7 +22,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
      */
     public function get_name()
     {
-        return 'orbit-tabs';
+        return 'jdt-tabs';
     }
 
     /**
@@ -62,7 +62,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
      */
     public function get_script_depends()
     {
-        return array('orbit-tabs');
+        return array('jdt-tabs');
     }
 
     /**
@@ -70,7 +70,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
      */
     public function get_style_depends()
     {
-        return array('orbit-tabs');
+        return array('jdt-tabs');
     }
 
     /**

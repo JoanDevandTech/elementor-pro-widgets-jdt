@@ -78,15 +78,15 @@ class EPW_JDT
     private function register_widgets()
     {
         // Register Polaroid Tabs widget
-        $this->widgets['orbit-tabs'] = array(
+        $this->widgets['jdt-tabs'] = array(
             'name' => 'Polaroid Tabs',
-            'class' => 'Elementor_Orbit_Tabs_Widget',
-            'file' => 'widgets/orbit-tabs/elementor-widget.php',
-            'shortcode' => 'orbit_tabs',
-            'shortcode_handler' => 'widgets/orbit-tabs/shortcode-handler.php',
+            'class' => 'Elementor_JDT_Tabs_Widget',
+            'file' => 'widgets/jdt-tabs/elementor-widget.php',
+            'shortcode' => 'jdt_tabs',
+            'shortcode_handler' => 'widgets/jdt-tabs/shortcode-handler.php',
             'assets' => array(
-                'css' => 'widgets/orbit-tabs/assets/orbit-tabs.css',
-                'js' => 'widgets/orbit-tabs/assets/orbit-tabs.js',
+                'css' => 'widgets/jdt-tabs/assets/jdt-tabs.css',
+                'js' => 'widgets/jdt-tabs/assets/jdt-tabs.js',
             ),
             'js_deps' => array('jquery', 'gsap'),
         );
