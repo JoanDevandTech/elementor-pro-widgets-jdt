@@ -1,10 +1,10 @@
 <?php
 /**
- * Elementor Orbit Tabs Widget
+ * Elementor Polaroid Tabs Widget
  * Custom widget for Elementor integration with full style controls
  */
 
-namespace Orbit_Customs;
+namespace EPW_JDT;
 
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Elementor Orbit Tabs Widget Class
+ * Elementor Polaroid Tabs Widget Class
  */
 class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
 {
@@ -30,7 +30,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
      */
     public function get_title()
     {
-        return __('Orbit Polaroid Tabs', 'orbit-customs');
+        return __('Polaroid Tabs', 'epw-jdt');
     }
 
     /**
@@ -54,7 +54,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
      */
     public function get_keywords()
     {
-        return array('tabs', 'polaroid', 'gallery', 'orbit', 'images');
+        return array('tabs', 'polaroid', 'gallery', 'images');
     }
 
     /**
@@ -85,7 +85,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'content_section',
             array(
-                'label' => __('Tabs', 'orbit-customs'),
+                'label' => __('Tabs', 'epw-jdt'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             )
         );
@@ -96,9 +96,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $left_tabs_repeater->add_control(
             'tab_title',
             array(
-                'label' => __('Tab Title', 'orbit-customs'),
+                'label' => __('Tab Title', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => __('Tab Title', 'orbit-customs'),
+                'default' => __('Tab Title', 'epw-jdt'),
                 'label_block' => true,
                 'dynamic' => array(
                     'active' => true,
@@ -109,7 +109,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $left_tabs_repeater->add_control(
             'tab_image',
             array(
-                'label' => __('Image', 'orbit-customs'),
+                'label' => __('Image', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::MEDIA,
                 'default' => array(
                     'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -123,9 +123,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $left_tabs_repeater->add_control(
             'cta_text',
             array(
-                'label' => __('CTA Button Text', 'orbit-customs'),
+                'label' => __('CTA Button Text', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => __('View More', 'orbit-customs'),
+                'default' => __('View More', 'epw-jdt'),
                 'dynamic' => array(
                     'active' => true,
                 ),
@@ -135,9 +135,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $left_tabs_repeater->add_control(
             'cta_link',
             array(
-                'label' => __('CTA Button Link', 'orbit-customs'),
+                'label' => __('CTA Button Link', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::URL,
-                'placeholder' => __('https://your-link.com', 'orbit-customs'),
+                'placeholder' => __('https://your-link.com', 'epw-jdt'),
                 'default' => array(
                     'url' => '#',
                 ),
@@ -150,18 +150,18 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $left_tabs_repeater->add_control(
             'cta_position',
             array(
-                'label' => __('CTA Button Position', 'orbit-customs'),
+                'label' => __('CTA Button Position', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => array(
-                    'top-left' => __('Top Left', 'orbit-customs'),
-                    'top-center' => __('Top Center', 'orbit-customs'),
-                    'top-right' => __('Top Right', 'orbit-customs'),
-                    'center-left' => __('Center Left', 'orbit-customs'),
-                    'center-center' => __('Center Center', 'orbit-customs'),
-                    'center-right' => __('Center Right', 'orbit-customs'),
-                    'bottom-left' => __('Bottom Left', 'orbit-customs'),
-                    'bottom-center' => __('Bottom Center', 'orbit-customs'),
-                    'bottom-right' => __('Bottom Right', 'orbit-customs'),
+                    'top-left' => __('Top Left', 'epw-jdt'),
+                    'top-center' => __('Top Center', 'epw-jdt'),
+                    'top-right' => __('Top Right', 'epw-jdt'),
+                    'center-left' => __('Center Left', 'epw-jdt'),
+                    'center-center' => __('Center Center', 'epw-jdt'),
+                    'center-right' => __('Center Right', 'epw-jdt'),
+                    'bottom-left' => __('Bottom Left', 'epw-jdt'),
+                    'bottom-center' => __('Bottom Center', 'epw-jdt'),
+                    'bottom-right' => __('Bottom Right', 'epw-jdt'),
                 ),
                 'default' => 'center-right',
             )
@@ -170,17 +170,17 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'left_tabs',
             array(
-                'label' => __('Left Column Tabs', 'orbit-customs'),
+                'label' => __('Left Column Tabs', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::REPEATER,
                 'fields' => $left_tabs_repeater->get_controls(),
                 'default' => array(
                     array(
-                        'tab_title' => __('Creative Design', 'orbit-customs'),
-                        'cta_text' => __('View More', 'orbit-customs'),
+                        'tab_title' => __('Creative Design', 'epw-jdt'),
+                        'cta_text' => __('View More', 'epw-jdt'),
                     ),
                     array(
-                        'tab_title' => __('Development', 'orbit-customs'),
-                        'cta_text' => __('View More', 'orbit-customs'),
+                        'tab_title' => __('Development', 'epw-jdt'),
+                        'cta_text' => __('View More', 'epw-jdt'),
                     ),
                 ),
                 'title_field' => '{{{ tab_title }}}',
@@ -193,9 +193,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $right_tabs_repeater->add_control(
             'tab_title',
             array(
-                'label' => __('Tab Title', 'orbit-customs'),
+                'label' => __('Tab Title', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => __('Tab Title', 'orbit-customs'),
+                'default' => __('Tab Title', 'epw-jdt'),
                 'label_block' => true,
                 'dynamic' => array(
                     'active' => true,
@@ -206,7 +206,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $right_tabs_repeater->add_control(
             'tab_image',
             array(
-                'label' => __('Image', 'orbit-customs'),
+                'label' => __('Image', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::MEDIA,
                 'default' => array(
                     'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -220,9 +220,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $right_tabs_repeater->add_control(
             'cta_text',
             array(
-                'label' => __('CTA Button Text', 'orbit-customs'),
+                'label' => __('CTA Button Text', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => __('View More', 'orbit-customs'),
+                'default' => __('View More', 'epw-jdt'),
                 'dynamic' => array(
                     'active' => true,
                 ),
@@ -232,9 +232,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $right_tabs_repeater->add_control(
             'cta_link',
             array(
-                'label' => __('CTA Button Link', 'orbit-customs'),
+                'label' => __('CTA Button Link', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::URL,
-                'placeholder' => __('https://your-link.com', 'orbit-customs'),
+                'placeholder' => __('https://your-link.com', 'epw-jdt'),
                 'default' => array(
                     'url' => '#',
                 ),
@@ -247,18 +247,18 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $right_tabs_repeater->add_control(
             'cta_position',
             array(
-                'label' => __('CTA Button Position', 'orbit-customs'),
+                'label' => __('CTA Button Position', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => array(
-                    'top-left' => __('Top Left', 'orbit-customs'),
-                    'top-center' => __('Top Center', 'orbit-customs'),
-                    'top-right' => __('Top Right', 'orbit-customs'),
-                    'center-left' => __('Center Left', 'orbit-customs'),
-                    'center-center' => __('Center Center', 'orbit-customs'),
-                    'center-right' => __('Center Right', 'orbit-customs'),
-                    'bottom-left' => __('Bottom Left', 'orbit-customs'),
-                    'bottom-center' => __('Bottom Center', 'orbit-customs'),
-                    'bottom-right' => __('Bottom Right', 'orbit-customs'),
+                    'top-left' => __('Top Left', 'epw-jdt'),
+                    'top-center' => __('Top Center', 'epw-jdt'),
+                    'top-right' => __('Top Right', 'epw-jdt'),
+                    'center-left' => __('Center Left', 'epw-jdt'),
+                    'center-center' => __('Center Center', 'epw-jdt'),
+                    'center-right' => __('Center Right', 'epw-jdt'),
+                    'bottom-left' => __('Bottom Left', 'epw-jdt'),
+                    'bottom-center' => __('Bottom Center', 'epw-jdt'),
+                    'bottom-right' => __('Bottom Right', 'epw-jdt'),
                 ),
                 'default' => 'center-right',
             )
@@ -267,17 +267,17 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'right_tabs',
             array(
-                'label' => __('Right Column Tabs', 'orbit-customs'),
+                'label' => __('Right Column Tabs', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::REPEATER,
                 'fields' => $right_tabs_repeater->get_controls(),
                 'default' => array(
                     array(
-                        'tab_title' => __('Marketing', 'orbit-customs'),
-                        'cta_text' => __('View More', 'orbit-customs'),
+                        'tab_title' => __('Marketing', 'epw-jdt'),
+                        'cta_text' => __('View More', 'epw-jdt'),
                     ),
                     array(
-                        'tab_title' => __('Photography', 'orbit-customs'),
-                        'cta_text' => __('View More', 'orbit-customs'),
+                        'tab_title' => __('Photography', 'epw-jdt'),
+                        'cta_text' => __('View More', 'epw-jdt'),
                     ),
                 ),
                 'title_field' => '{{{ tab_title }}}',
@@ -292,7 +292,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'settings_section',
             array(
-                'label' => __('Settings', 'orbit-customs'),
+                'label' => __('Settings', 'epw-jdt'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             )
         );
@@ -300,10 +300,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'enable_overlay',
             array(
-                'label' => __('Enable Vignette Overlay', 'orbit-customs'),
+                'label' => __('Enable Vignette Overlay', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Yes', 'orbit-customs'),
-                'label_off' => __('No', 'orbit-customs'),
+                'label_on' => __('Yes', 'epw-jdt'),
+                'label_off' => __('No', 'epw-jdt'),
                 'return_value' => 'yes',
                 'default' => 'no',
             )
@@ -317,7 +317,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'style_buttons',
             array(
-                'label' => __('Tab Buttons', 'orbit-customs'),
+                'label' => __('Tab Buttons', 'epw-jdt'),
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             )
         );
@@ -326,7 +326,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
             \Elementor\Group_Control_Typography::get_type(),
             array(
                 'name' => 'button_typography',
-                'selector' => '{{WRAPPER}} .orbit-tab-button',
+                'selector' => '{{WRAPPER}} .epw-tab-button',
             )
         );
 
@@ -336,17 +336,17 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->start_controls_tab(
             'button_normal',
             array(
-                'label' => __('Normal', 'orbit-customs'),
+                'label' => __('Normal', 'epw-jdt'),
             )
         );
 
         $this->add_control(
             'button_text_color',
             array(
-                'label' => __('Text Color', 'orbit-customs'),
+                'label' => __('Text Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-tab-button' => 'color: {{VALUE}}',
                 ),
             )
         );
@@ -354,10 +354,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'button_bg_color',
             array(
-                'label' => __('Background Color', 'orbit-customs'),
+                'label' => __('Background Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-tab-button' => 'background-color: {{VALUE}}',
                 ),
             )
         );
@@ -365,10 +365,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'button_border_color',
             array(
-                'label' => __('Border Color', 'orbit-customs'),
+                'label' => __('Border Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button' => 'border-color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-tab-button' => 'border-color: {{VALUE}}',
                 ),
             )
         );
@@ -379,17 +379,17 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->start_controls_tab(
             'button_hover',
             array(
-                'label' => __('Hover', 'orbit-customs'),
+                'label' => __('Hover', 'epw-jdt'),
             )
         );
 
         $this->add_control(
             'button_hover_text_color',
             array(
-                'label' => __('Text Color', 'orbit-customs'),
+                'label' => __('Text Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button:hover' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-tab-button:hover' => 'color: {{VALUE}}',
                 ),
             )
         );
@@ -397,10 +397,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'button_hover_bg_color',
             array(
-                'label' => __('Background Color', 'orbit-customs'),
+                'label' => __('Background Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button:hover' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-tab-button:hover' => 'background-color: {{VALUE}}',
                 ),
             )
         );
@@ -408,10 +408,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'button_hover_border_color',
             array(
-                'label' => __('Border Color', 'orbit-customs'),
+                'label' => __('Border Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button:hover' => 'border-color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-tab-button:hover' => 'border-color: {{VALUE}}',
                 ),
             )
         );
@@ -422,17 +422,17 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->start_controls_tab(
             'button_active',
             array(
-                'label' => __('Active', 'orbit-customs'),
+                'label' => __('Active', 'epw-jdt'),
             )
         );
 
         $this->add_control(
             'button_active_text_color',
             array(
-                'label' => __('Text Color', 'orbit-customs'),
+                'label' => __('Text Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button[aria-selected="true"]' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-tab-button[aria-selected="true"]' => 'color: {{VALUE}}',
                 ),
             )
         );
@@ -440,10 +440,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'button_active_bg_color',
             array(
-                'label' => __('Background Color', 'orbit-customs'),
+                'label' => __('Background Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button[aria-selected="true"]' => 'background: {{VALUE}}',
+                    '{{WRAPPER}} .epw-tab-button[aria-selected="true"]' => 'background: {{VALUE}}',
                 ),
             )
         );
@@ -451,10 +451,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'button_active_border_color',
             array(
-                'label' => __('Border Color', 'orbit-customs'),
+                'label' => __('Border Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button[aria-selected="true"]' => 'border-color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-tab-button[aria-selected="true"]' => 'border-color: {{VALUE}}',
                 ),
             )
         );
@@ -466,11 +466,11 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_responsive_control(
             'button_padding',
             array(
-                'label' => __('Padding', 'orbit-customs'),
+                'label' => __('Padding', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => array('px', 'em', '%'),
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .epw-tab-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
                 'separator' => 'before',
             )
@@ -479,11 +479,11 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_responsive_control(
             'button_border_radius',
             array(
-                'label' => __('Border Radius', 'orbit-customs'),
+                'label' => __('Border Radius', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => array('px', '%'),
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-tab-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .epw-tab-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
             )
         );
@@ -496,7 +496,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'style_cta',
             array(
-                'label' => __('CTA Buttons', 'orbit-customs'),
+                'label' => __('CTA Buttons', 'epw-jdt'),
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             )
         );
@@ -505,17 +505,17 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
             \Elementor\Group_Control_Typography::get_type(),
             array(
                 'name' => 'cta_typography',
-                'selector' => '{{WRAPPER}} .orbit-polaroid-cta',
+                'selector' => '{{WRAPPER}} .epw-polaroid-cta',
             )
         );
 
         $this->add_control(
             'cta_text_color',
             array(
-                'label' => __('Text Color', 'orbit-customs'),
+                'label' => __('Text Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid-cta' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-polaroid-cta' => 'color: {{VALUE}}',
                 ),
             )
         );
@@ -523,10 +523,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'cta_bg_color',
             array(
-                'label' => __('Background Color', 'orbit-customs'),
+                'label' => __('Background Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid-cta' => 'background: {{VALUE}}',
+                    '{{WRAPPER}} .epw-polaroid-cta' => 'background: {{VALUE}}',
                 ),
             )
         );
@@ -534,11 +534,11 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_responsive_control(
             'cta_padding',
             array(
-                'label' => __('Padding', 'orbit-customs'),
+                'label' => __('Padding', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => array('px', 'em', '%'),
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid-cta' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .epw-polaroid-cta' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
             )
         );
@@ -546,7 +546,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_responsive_control(
             'cta_border_radius',
             array(
-                'label' => __('Border Radius', 'orbit-customs'),
+                'label' => __('Border Radius', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => array('px', '%'),
                 'range' => array(
@@ -556,7 +556,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
                     ),
                 ),
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid-cta' => 'border-radius: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .epw-polaroid-cta' => 'border-radius: {{SIZE}}{{UNIT}};',
                 ),
             )
         );
@@ -569,7 +569,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'style_polaroid',
             array(
-                'label' => __('Polaroid Images', 'orbit-customs'),
+                'label' => __('Polaroid Images', 'epw-jdt'),
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             )
         );
@@ -577,10 +577,10 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'polaroid_bg_color',
             array(
-                'label' => __('Border Color', 'orbit-customs'),
+                'label' => __('Border Color', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .epw-polaroid' => 'background-color: {{VALUE}}',
                 ),
             )
         );
@@ -588,7 +588,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_responsive_control(
             'polaroid_border_width',
             array(
-                'label' => __('Border Width', 'orbit-customs'),
+                'label' => __('Border Width', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => array('px'),
                 'range' => array(
@@ -598,7 +598,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
                     ),
                 ),
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid' => 'padding: {{SIZE}}{{UNIT}}; padding-bottom: calc({{SIZE}}{{UNIT}} * 2.5);',
+                    '{{WRAPPER}} .epw-polaroid' => 'padding: {{SIZE}}{{UNIT}}; padding-bottom: calc({{SIZE}}{{UNIT}} * 2.5);',
                 ),
             )
         );
@@ -607,14 +607,14 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
             \Elementor\Group_Control_Box_Shadow::get_type(),
             array(
                 'name' => 'polaroid_shadow',
-                'selector' => '{{WRAPPER}} .orbit-polaroid',
+                'selector' => '{{WRAPPER}} .epw-polaroid',
             )
         );
 
         $this->add_responsive_control(
             'image_width',
             array(
-                'label' => __('Image Width', 'orbit-customs'),
+                'label' => __('Image Width', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => array('px', '%', 'vw'),
                 'range' => array(
@@ -633,7 +633,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
                     'size' => 320,
                 ),
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid' => 'max-width: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .epw-polaroid' => 'max-width: {{SIZE}}{{UNIT}};',
                 ),
                 'separator' => 'before',
             )
@@ -642,7 +642,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_responsive_control(
             'image_height',
             array(
-                'label' => __('Image Height', 'orbit-customs'),
+                'label' => __('Image Height', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => array('px', 'vh'),
                 'range' => array(
@@ -653,7 +653,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
                     ),
                 ),
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid img' => 'height: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .epw-polaroid img' => 'height: {{SIZE}}{{UNIT}};',
                 ),
             )
         );
@@ -661,21 +661,21 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'image_aspect_ratio',
             array(
-                'label' => __('Aspect Ratio', 'orbit-customs'),
+                'label' => __('Aspect Ratio', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => array(
-                    '' => __('Default (Auto)', 'orbit-customs'),
-                    '1/1' => __('1:1 (Square)', 'orbit-customs'),
-                    '4/3' => __('4:3 (Standard)', 'orbit-customs'),
-                    '3/2' => __('3:2 (Classic)', 'orbit-customs'),
-                    '16/9' => __('16:9 (Widescreen)', 'orbit-customs'),
-                    '9/16' => __('9:16 (Portrait)', 'orbit-customs'),
-                    '21/9' => __('21:9 (Ultrawide)', 'orbit-customs'),
-                    '3/4' => __('3:4 (Portrait)', 'orbit-customs'),
+                    '' => __('Default (Auto)', 'epw-jdt'),
+                    '1/1' => __('1:1 (Square)', 'epw-jdt'),
+                    '4/3' => __('4:3 (Standard)', 'epw-jdt'),
+                    '3/2' => __('3:2 (Classic)', 'epw-jdt'),
+                    '16/9' => __('16:9 (Widescreen)', 'epw-jdt'),
+                    '9/16' => __('9:16 (Portrait)', 'epw-jdt'),
+                    '21/9' => __('21:9 (Ultrawide)', 'epw-jdt'),
+                    '3/4' => __('3:4 (Portrait)', 'epw-jdt'),
                 ),
                 'default' => '',
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid img' => 'aspect-ratio: {{VALUE}};',
+                    '{{WRAPPER}} .epw-polaroid img' => 'aspect-ratio: {{VALUE}};',
                 ),
             )
         );
@@ -683,18 +683,18 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'image_object_fit',
             array(
-                'label' => __('Object Fit', 'orbit-customs'),
+                'label' => __('Object Fit', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => array(
-                    '' => __('Default', 'orbit-customs'),
-                    'cover' => __('Cover', 'orbit-customs'),
-                    'contain' => __('Contain', 'orbit-customs'),
-                    'fill' => __('Fill', 'orbit-customs'),
-                    'none' => __('None', 'orbit-customs'),
+                    '' => __('Default', 'epw-jdt'),
+                    'cover' => __('Cover', 'epw-jdt'),
+                    'contain' => __('Contain', 'epw-jdt'),
+                    'fill' => __('Fill', 'epw-jdt'),
+                    'none' => __('None', 'epw-jdt'),
                 ),
                 'default' => 'cover',
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid img' => 'object-fit: {{VALUE}};',
+                    '{{WRAPPER}} .epw-polaroid img' => 'object-fit: {{VALUE}};',
                 ),
             )
         );
@@ -702,22 +702,22 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'image_object_position',
             array(
-                'label' => __('Object Position', 'orbit-customs'),
+                'label' => __('Object Position', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => array(
-                    'center center' => __('Center Center', 'orbit-customs'),
-                    'center top' => __('Center Top', 'orbit-customs'),
-                    'center bottom' => __('Center Bottom', 'orbit-customs'),
-                    'left center' => __('Left Center', 'orbit-customs'),
-                    'left top' => __('Left Top', 'orbit-customs'),
-                    'left bottom' => __('Left Bottom', 'orbit-customs'),
-                    'right center' => __('Right Center', 'orbit-customs'),
-                    'right top' => __('Right Top', 'orbit-customs'),
-                    'right bottom' => __('Right Bottom', 'orbit-customs'),
+                    'center center' => __('Center Center', 'epw-jdt'),
+                    'center top' => __('Center Top', 'epw-jdt'),
+                    'center bottom' => __('Center Bottom', 'epw-jdt'),
+                    'left center' => __('Left Center', 'epw-jdt'),
+                    'left top' => __('Left Top', 'epw-jdt'),
+                    'left bottom' => __('Left Bottom', 'epw-jdt'),
+                    'right center' => __('Right Center', 'epw-jdt'),
+                    'right top' => __('Right Top', 'epw-jdt'),
+                    'right bottom' => __('Right Bottom', 'epw-jdt'),
                 ),
                 'default' => 'center center',
                 'selectors' => array(
-                    '{{WRAPPER}} .orbit-polaroid img' => 'object-position: {{VALUE}};',
+                    '{{WRAPPER}} .epw-polaroid img' => 'object-position: {{VALUE}};',
                 ),
                 'condition' => array(
                     'image_object_fit!' => '',
@@ -738,7 +738,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $image_repeater->add_control(
             'image',
             array(
-                'label' => __('Choose Image', 'orbit-customs'),
+                'label' => __('Choose Image', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::MEDIA,
                 'default' => array(
                     'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -752,9 +752,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $image_repeater->add_control(
             'cta_text',
             array(
-                'label' => __('CTA Button Text', 'orbit-customs'),
+                'label' => __('CTA Button Text', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => __('View More', 'orbit-customs'),
+                'default' => __('View More', 'epw-jdt'),
                 'dynamic' => array(
                     'active' => true,
                 ),
@@ -764,9 +764,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $image_repeater->add_control(
             'cta_link',
             array(
-                'label' => __('CTA Button Link', 'orbit-customs'),
+                'label' => __('CTA Button Link', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::URL,
-                'placeholder' => __('https://your-link.com', 'orbit-customs'),
+                'placeholder' => __('https://your-link.com', 'epw-jdt'),
                 'default' => array(
                     'url' => '#',
                 ),
@@ -779,18 +779,18 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $image_repeater->add_control(
             'cta_position',
             array(
-                'label' => __('CTA Button Position', 'orbit-customs'),
+                'label' => __('CTA Button Position', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => array(
-                    'top-left' => __('Top Left', 'orbit-customs'),
-                    'top-center' => __('Top Center', 'orbit-customs'),
-                    'top-right' => __('Top Right', 'orbit-customs'),
-                    'center-left' => __('Center Left', 'orbit-customs'),
-                    'center-center' => __('Center Center', 'orbit-customs'),
-                    'center-right' => __('Center Right', 'orbit-customs'),
-                    'bottom-left' => __('Bottom Left', 'orbit-customs'),
-                    'bottom-center' => __('Bottom Center', 'orbit-customs'),
-                    'bottom-right' => __('Bottom Right', 'orbit-customs'),
+                    'top-left' => __('Top Left', 'epw-jdt'),
+                    'top-center' => __('Top Center', 'epw-jdt'),
+                    'top-right' => __('Top Right', 'epw-jdt'),
+                    'center-left' => __('Center Left', 'epw-jdt'),
+                    'center-center' => __('Center Center', 'epw-jdt'),
+                    'center-right' => __('Center Right', 'epw-jdt'),
+                    'bottom-left' => __('Bottom Left', 'epw-jdt'),
+                    'bottom-center' => __('Bottom Center', 'epw-jdt'),
+                    'bottom-right' => __('Bottom Right', 'epw-jdt'),
                 ),
                 'default' => 'center-right',
             )
@@ -805,7 +805,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
     protected function render()
     {
         $settings = $this->get_settings_for_display();
-        $container_id = 'orbit-tabs-' . $this->get_id();
+        $container_id = 'epw-tabs-' . $this->get_id();
 
         // Check if we have any tabs
         $has_left_tabs = !empty($settings['left_tabs']);
@@ -841,12 +841,12 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
             }
         }
         ?>
-        <div class="orbit-tabs-container" id="<?php echo esc_attr($container_id); ?>">
-            <div class="orbit-tabs-wrapper">
+        <div class="epw-tabs-container" id="<?php echo esc_attr($container_id); ?>">
+            <div class="epw-tabs-wrapper">
 
                 <!-- Left Column -->
-                <div class="orbit-tabs-left" role="tablist"
-                    aria-label="<?php esc_attr_e('Orbit Tabs Navigation', 'orbit-customs'); ?>">
+                <div class="epw-tabs-left" role="tablist"
+                    aria-label="<?php esc_attr_e('Tabs Navigation', 'epw-jdt'); ?>">
                     <?php
                     if ($has_left_tabs) {
                         foreach ($all_tabs as $tab_info) {
@@ -859,7 +859,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
                 </div>
 
                 <!-- Central Stage -->
-                <div class="orbit-tabs-stage <?php echo esc_attr($overlay_class); ?>">
+                <div class="epw-tabs-stage <?php echo esc_attr($overlay_class); ?>">
                     <?php
                     foreach ($all_tabs as $tab_info) {
                         $this->render_tab_content($tab_info['data'], $tab_info['index'], $container_id);
@@ -868,8 +868,8 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
                 </div>
 
                 <!-- Right Column -->
-                <div class="orbit-tabs-right" role="tablist"
-                    aria-label="<?php esc_attr_e('Orbit Tabs Navigation', 'orbit-customs'); ?>">
+                <div class="epw-tabs-right" role="tablist"
+                    aria-label="<?php esc_attr_e('Tabs Navigation', 'epw-jdt'); ?>">
                     <?php
                     if ($has_right_tabs) {
                         foreach ($all_tabs as $tab_info) {
@@ -894,7 +894,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $button_id = $container_id . '-tab-' . $index;
         $panel_id = $container_id . '-panel-' . $index;
         ?>
-        <button id="<?php echo esc_attr($button_id); ?>" class="orbit-tab-button" role="tab" aria-selected="false"
+        <button id="<?php echo esc_attr($button_id); ?>" class="epw-tab-button" role="tab" aria-selected="false"
             aria-controls="<?php echo esc_attr($panel_id); ?>" tabindex="-1">
             <?php echo esc_html($tab['tab_title']); ?>
         </button>
@@ -909,9 +909,9 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         $button_id = $container_id . '-tab-' . $index;
         $panel_id = $container_id . '-panel-' . $index;
         ?>
-        <div id="<?php echo esc_attr($panel_id); ?>" class="orbit-tab-content" role="tabpanel"
+        <div id="<?php echo esc_attr($panel_id); ?>" class="epw-tab-content" role="tabpanel"
             aria-labelledby="<?php echo esc_attr($button_id); ?>" aria-hidden="true">
-            <div class="orbit-polaroid-stack">
+            <div class="epw-polaroid-stack">
                 <?php
                 // Render single image for this tab
                 if (!empty($tab['tab_image']['url'])) {
@@ -933,7 +933,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
         }
 
         $cta_position = !empty($tab['cta_position']) ? $tab['cta_position'] : 'center-right';
-        $polaroid_class = 'orbit-polaroid cta-position-' . esc_attr($cta_position);
+        $polaroid_class = 'epw-polaroid cta-position-' . esc_attr($cta_position);
         ?>
         <div class="<?php echo esc_attr($polaroid_class); ?>">
             <img decoding="async" src="<?php echo esc_url($tab['tab_image']['url']); ?>"
@@ -943,7 +943,7 @@ class Elementor_Orbit_Tabs_Widget extends \Elementor\Widget_Base
                 $target = !empty($tab['cta_link']['is_external']) ? 'target="_blank"' : '';
                 $nofollow = !empty($tab['cta_link']['nofollow']) ? 'rel="nofollow"' : '';
                 ?>
-                <a href="<?php echo esc_url($tab['cta_link']['url']); ?>" class="orbit-polaroid-cta" <?php echo $target; ?>
+                <a href="<?php echo esc_url($tab['cta_link']['url']); ?>" class="epw-polaroid-cta" <?php echo $target; ?>
                     <?php echo $nofollow; ?>>
                     <?php echo esc_html($tab['cta_text']); ?>
                 </a>

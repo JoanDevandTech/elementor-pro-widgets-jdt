@@ -1,5 +1,5 @@
 /**
- * Orbit Polaroid Tabs - Simplified GSAP Carousel
+ * Polaroid Tabs - Simplified GSAP Carousel
  * 3-card carousel: previous, active, next
  */
 
@@ -7,23 +7,23 @@
 	'use strict';
 
 	/**
-	 * Initialize all Orbit Tabs instances
+	 * Initialize all Polaroid Tabs instances
 	 */
-	function initOrbitTabs() {
-		const containers = document.querySelectorAll('.orbit-tabs-container');
+	function initEpwTabs() {
+		const containers = document.querySelectorAll('.epw-tabs-container');
 		containers.forEach(container => {
-			new OrbitTabsController(container);
+			new EpwTabsController(container);
 		});
 	}
 
 	/**
-	 * Orbit Tabs Controller
+	 * EPW Tabs Controller
 	 */
-	class OrbitTabsController {
+	class EpwTabsController {
 		constructor(container) {
 			this.container = container;
-			this.buttons = container.querySelectorAll('.orbit-tab-button');
-			this.cards = gsap.utils.toArray(container.querySelectorAll('.orbit-polaroid'));
+			this.buttons = container.querySelectorAll('.epw-tab-button');
+			this.cards = gsap.utils.toArray(container.querySelectorAll('.epw-polaroid'));
 			this.currentIndex = 0;
 
 			if (this.cards.length === 0) {
@@ -163,17 +163,17 @@
 
 	// Initialize
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initOrbitTabs);
+		document.addEventListener('DOMContentLoaded', initEpwTabs);
 	} else {
-		initOrbitTabs();
+		initEpwTabs();
 	}
 
-	// Elementor support
+	// Elementor support - keep 'orbit-tabs' to match get_name()
 	if (typeof window.elementorFrontend !== 'undefined' && window.elementorFrontend.hooks) {
 		window.elementorFrontend.hooks.addAction('frontend/element_ready/orbit-tabs.default', function ($scope) {
-			const container = $scope[0].querySelector('.orbit-tabs-container');
+			const container = $scope[0].querySelector('.epw-tabs-container');
 			if (container) {
-				new OrbitTabsController(container);
+				new EpwTabsController(container);
 			}
 		});
 	}
@@ -182,9 +182,9 @@
 		jQuery(window).on('elementor/frontend/init', function () {
 			if (typeof elementorFrontend !== 'undefined') {
 				elementorFrontend.hooks.addAction('frontend/element_ready/orbit-tabs.default', function ($scope) {
-					const container = $scope[0].querySelector('.orbit-tabs-container');
+					const container = $scope[0].querySelector('.epw-tabs-container');
 					if (container) {
-						new OrbitTabsController(container);
+						new EpwTabsController(container);
 					}
 				});
 			}

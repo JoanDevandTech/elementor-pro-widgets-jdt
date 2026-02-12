@@ -1,6 +1,6 @@
 <?php
 /**
- * Orbit Tabs Shortcode Handler
+ * Polaroid Tabs Shortcode Handler
  * Renders the HTML structure for the Polaroid Tabs component
  */
 
@@ -10,12 +10,12 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Render Orbit Tabs component via shortcode
+ * Render Polaroid Tabs component via shortcode
  *
  * @param array $atts Shortcode attributes
  * @return string HTML output
  */
-function orbit_customs_orbit_tabs_shortcode($atts)
+function epw_jdt_orbit_tabs_shortcode($atts)
 {
     // Enqueue assets
     wp_enqueue_style('orbit-tabs');
@@ -24,7 +24,7 @@ function orbit_customs_orbit_tabs_shortcode($atts)
     // Parse attributes with defaults
     $atts = shortcode_atts(
         array(
-            'id' => 'orbit-tabs-' . uniqid(),
+            'id' => 'epw-tabs-' . uniqid(),
         ),
         $atts,
         'orbit_tabs'
@@ -34,43 +34,43 @@ function orbit_customs_orbit_tabs_shortcode($atts)
     $container_id = sanitize_html_class($atts['id']);
 
     // Default demo content
-    $left_tabs = orbit_customs_get_default_left_tabs();
-    $right_tabs = orbit_customs_get_default_right_tabs();
+    $left_tabs = epw_jdt_get_default_left_tabs();
+    $right_tabs = epw_jdt_get_default_right_tabs();
 
     // Start output buffering
     ob_start();
     ?>
 
-    <div class="orbit-tabs-container" id="<?php echo esc_attr($container_id); ?>">
-        <div class="orbit-tabs-wrapper">
+    <div class="epw-tabs-container" id="<?php echo esc_attr($container_id); ?>">
+        <div class="epw-tabs-wrapper">
 
             <!-- Left Column -->
-            <div class="orbit-tabs-left" role="tablist"
-                aria-label="<?php esc_attr_e('Orbit Tabs Navigation', 'orbit-customs'); ?>">
+            <div class="epw-tabs-left" role="tablist"
+                aria-label="<?php esc_attr_e('Tabs Navigation', 'epw-jdt'); ?>">
                 <?php
                 foreach ($left_tabs as $index => $tab) {
-                    orbit_customs_render_tab_button($tab, $index, $container_id);
+                    epw_jdt_render_tab_button($tab, $index, $container_id);
                 }
                 ?>
             </div>
 
             <!-- Central Stage -->
-            <div class="orbit-tabs-stage">
+            <div class="epw-tabs-stage">
                 <?php
                 $all_tabs = array_merge($left_tabs, $right_tabs);
                 foreach ($all_tabs as $index => $tab) {
-                    orbit_customs_render_tab_content($tab, $index, $container_id);
+                    epw_jdt_render_tab_content($tab, $index, $container_id);
                 }
                 ?>
             </div>
 
             <!-- Right Column -->
-            <div class="orbit-tabs-right" role="tablist"
-                aria-label="<?php esc_attr_e('Orbit Tabs Navigation', 'orbit-customs'); ?>">
+            <div class="epw-tabs-right" role="tablist"
+                aria-label="<?php esc_attr_e('Tabs Navigation', 'epw-jdt'); ?>">
                 <?php
                 $right_offset = count($left_tabs);
                 foreach ($right_tabs as $index => $tab) {
-                    orbit_customs_render_tab_button($tab, $right_offset + $index, $container_id);
+                    epw_jdt_render_tab_button($tab, $right_offset + $index, $container_id);
                 }
                 ?>
             </div>
@@ -89,12 +89,12 @@ function orbit_customs_orbit_tabs_shortcode($atts)
  * @param int    $index Tab index
  * @param string $container_id Container ID
  */
-function orbit_customs_render_tab_button($tab, $index, $container_id)
+function epw_jdt_render_tab_button($tab, $index, $container_id)
 {
     $button_id = $container_id . '-tab-' . $index;
     $panel_id = $container_id . '-panel-' . $index;
     ?>
-    <button id="<?php echo esc_attr($button_id); ?>" class="orbit-tab-button" role="tab" aria-selected="false"
+    <button id="<?php echo esc_attr($button_id); ?>" class="epw-tab-button" role="tab" aria-selected="false"
         aria-controls="<?php echo esc_attr($panel_id); ?>" tabindex="-1">
         <?php echo esc_html($tab['title']); ?>
     </button>
@@ -108,17 +108,17 @@ function orbit_customs_render_tab_button($tab, $index, $container_id)
  * @param int    $index Tab index
  * @param string $container_id Container ID
  */
-function orbit_customs_render_tab_content($tab, $index, $container_id)
+function epw_jdt_render_tab_content($tab, $index, $container_id)
 {
     $button_id = $container_id . '-tab-' . $index;
     $panel_id = $container_id . '-panel-' . $index;
     ?>
-    <div id="<?php echo esc_attr($panel_id); ?>" class="orbit-tab-content" role="tabpanel"
+    <div id="<?php echo esc_attr($panel_id); ?>" class="epw-tab-content" role="tabpanel"
         aria-labelledby="<?php echo esc_attr($button_id); ?>" aria-hidden="true">
-        <div class="orbit-polaroid-stack">
+        <div class="epw-polaroid-stack">
             <?php
             if (!empty($tab['image'])) {
-                orbit_customs_render_polaroid($tab);
+                epw_jdt_render_polaroid($tab);
             }
             ?>
         </div>
@@ -131,16 +131,16 @@ function orbit_customs_render_tab_content($tab, $index, $container_id)
  *
  * @param array $tab Tab data with image
  */
-function orbit_customs_render_polaroid($tab)
+function epw_jdt_render_polaroid($tab)
 {
     $cta_position = !empty($tab['cta_position']) ? $tab['cta_position'] : 'center-right';
-    $polaroid_class = 'orbit-polaroid cta-position-' . esc_attr($cta_position);
+    $polaroid_class = 'epw-polaroid cta-position-' . esc_attr($cta_position);
     ?>
     <div class="<?php echo esc_attr($polaroid_class); ?>">
         <img src="<?php echo esc_url($tab['image']['url']); ?>" alt="<?php echo esc_attr($tab['image']['alt']); ?>"
             loading="lazy" decoding="async">
         <?php if (!empty($tab['cta_text']) && !empty($tab['cta_link'])): ?>
-            <a href="<?php echo esc_url($tab['cta_link']); ?>" class="orbit-polaroid-cta" target="_blank"
+            <a href="<?php echo esc_url($tab['cta_link']); ?>" class="epw-polaroid-cta" target="_blank"
                 rel="noopener noreferrer">
                 <?php echo esc_html($tab['cta_text']); ?>
             </a>
@@ -154,28 +154,28 @@ function orbit_customs_render_polaroid($tab)
  *
  * @return array Default left tabs configuration
  */
-function orbit_customs_get_default_left_tabs()
+function epw_jdt_get_default_left_tabs()
 {
     $placeholder_base = 'https://via.placeholder.com/';
 
     return array(
         array(
-            'title' => __('Creative Design', 'orbit-customs'),
+            'title' => __('Creative Design', 'epw-jdt'),
             'image' => array(
                 'url' => $placeholder_base . '400x500/2196F3/FFFFFF?text=Design',
-                'alt' => __('Creative Design', 'orbit-customs'),
+                'alt' => __('Creative Design', 'epw-jdt'),
             ),
-            'cta_text' => __('View Project', 'orbit-customs'),
+            'cta_text' => __('View Project', 'epw-jdt'),
             'cta_link' => '#',
             'cta_position' => 'center-right',
         ),
         array(
-            'title' => __('Development', 'orbit-customs'),
+            'title' => __('Development', 'epw-jdt'),
             'image' => array(
                 'url' => $placeholder_base . '400x500/4CAF50/FFFFFF?text=Code',
-                'alt' => __('Development', 'orbit-customs'),
+                'alt' => __('Development', 'epw-jdt'),
             ),
-            'cta_text' => __('Learn More', 'orbit-customs'),
+            'cta_text' => __('Learn More', 'epw-jdt'),
             'cta_link' => '#',
             'cta_position' => 'center-right',
         ),
@@ -187,28 +187,28 @@ function orbit_customs_get_default_left_tabs()
  *
  * @return array Default right tabs configuration
  */
-function orbit_customs_get_default_right_tabs()
+function epw_jdt_get_default_right_tabs()
 {
     $placeholder_base = 'https://via.placeholder.com/';
 
     return array(
         array(
-            'title' => __('Marketing', 'orbit-customs'),
+            'title' => __('Marketing', 'epw-jdt'),
             'image' => array(
                 'url' => $placeholder_base . '400x500/FF9800/FFFFFF?text=Marketing',
-                'alt' => __('Marketing', 'orbit-customs'),
+                'alt' => __('Marketing', 'epw-jdt'),
             ),
-            'cta_text' => __('Explore', 'orbit-customs'),
+            'cta_text' => __('Explore', 'epw-jdt'),
             'cta_link' => '#',
             'cta_position' => 'center-right',
         ),
         array(
-            'title' => __('Photography', 'orbit-customs'),
+            'title' => __('Photography', 'epw-jdt'),
             'image' => array(
                 'url' => $placeholder_base . '400x500/9C27B0/FFFFFF?text=Photo',
-                'alt' => __('Photography', 'orbit-customs'),
+                'alt' => __('Photography', 'epw-jdt'),
             ),
-            'cta_text' => __('Gallery', 'orbit-customs'),
+            'cta_text' => __('Gallery', 'epw-jdt'),
             'cta_link' => '#',
             'cta_position' => 'center-right',
         ),

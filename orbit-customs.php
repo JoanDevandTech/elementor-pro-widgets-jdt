@@ -1,18 +1,18 @@
 <?php
 /**
- * Plugin Name: Orbit Customs
- * Plugin URI: https://joandev.com/orbit-customs
- * Description: Custom visual components including Polaroid Tabs with stunning animations and Elementor integration
+ * Plugin Name: Elementor Pro Widgets JDT
+ * Plugin URI: https://joandev.com/epw-jdt
+ * Description: Custom visual components including Polaroid Tabs, Custom Zoom Gallery and Elementor integration
  * Author: Joan Dev & Tech
- * Version: 1.2.7
+ * Version: 1.3.0
  * Author URI: https://joandev.com
- * Text Domain: orbit-customs
+ * Text Domain: epw-jdt
  * License: GPLv2 or later
  * Requires at least: 5.0
  * Tested up to: 6.8
  * Requires PHP: 7.3
  * Location: Galiza, Spain
- * Update URI: https://joandev.com/orbit-customs
+ * Update URI: https://joandev.com/epw-jdt
  */
 
 // Exit if accessed directly
@@ -21,14 +21,14 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('ORBIT_CUSTOMS_VERSION', '1.2.7');
-define('ORBIT_CUSTOMS_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define('ORBIT_CUSTOMS_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('EPW_JDT_VERSION', '1.3.0');
+define('EPW_JDT_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('EPW_JDT_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 /**
- * Main Orbit Customs Class
+ * Main EPW_JDT Class
  */
-class Orbit_Customs
+class EPW_JDT
 {
     /**
      * Instance of this class
@@ -77,9 +77,9 @@ class Orbit_Customs
      */
     private function register_widgets()
     {
-        // Register Orbit Tabs widget
+        // Register Polaroid Tabs widget
         $this->widgets['orbit-tabs'] = array(
-            'name' => 'Orbit Tabs',
+            'name' => 'Polaroid Tabs',
             'class' => 'Elementor_Orbit_Tabs_Widget',
             'file' => 'widgets/orbit-tabs/elementor-widget.php',
             'shortcode' => 'orbit_tabs',
@@ -88,15 +88,31 @@ class Orbit_Customs
                 'css' => 'widgets/orbit-tabs/assets/orbit-tabs.css',
                 'js' => 'widgets/orbit-tabs/assets/orbit-tabs.js',
             ),
+            'js_deps' => array('jquery', 'gsap'),
+        );
+
+        // Register Custom Zoom Gallery widget
+        $this->widgets['zoom-gallery'] = array(
+            'name' => 'Custom Zoom Gallery',
+            'class' => 'Elementor_Zoom_Gallery_Widget',
+            'file' => 'widgets/zoom-gallery/elementor-widget.php',
+            'shortcode' => 'zoom_gallery',
+            'shortcode_handler' => 'widgets/zoom-gallery/shortcode-handler.php',
+            'assets' => array(
+                'css' => 'widgets/zoom-gallery/assets/zoom-gallery.css',
+                'js' => 'widgets/zoom-gallery/assets/zoom-gallery.js',
+            ),
+            'js_deps' => array('gsap', 'gsap-scrolltrigger'),
         );
 
         // Register shortcodes for each widget
         foreach ($this->widgets as $widget_id => $widget_config) {
             if (isset($widget_config['shortcode']) && isset($widget_config['shortcode_handler'])) {
-                $handler_file = ORBIT_CUSTOMS_PLUGIN_DIR . 'includes/' . $widget_config['shortcode_handler'];
+                $handler_file = EPW_JDT_PLUGIN_DIR . 'includes/' . $widget_config['shortcode_handler'];
                 if (file_exists($handler_file)) {
                     require_once $handler_file;
-                    add_shortcode($widget_config['shortcode'], 'orbit_customs_' . str_replace('-', '_', $widget_id) . '_shortcode');
+                    $shortcode_function = 'epw_jdt_' . str_replace('-', '_', $widget_id) . '_shortcode';
+                    add_shortcode($widget_config['shortcode'], $shortcode_function);
                 }
             }
         }
@@ -107,7 +123,7 @@ class Orbit_Customs
      */
     public function load_textdomain()
     {
-        load_plugin_textdomain('orbit-customs', false, dirname(plugin_basename(__FILE__)) . '/languages');
+        load_plugin_textdomain('epw-jdt', false, dirname(plugin_basename(__FILE__)) . '/languages');
     }
 
     /**
@@ -115,11 +131,20 @@ class Orbit_Customs
      */
     public function register_assets()
     {
-        // Register GSAP library (required for carousel effect)
+        // Register GSAP library (required for animations)
         wp_register_script(
             'gsap',
             'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
             array(),
+            '3.12.5',
+            true
+        );
+
+        // Register GSAP ScrollTrigger plugin
+        wp_register_script(
+            'gsap-scrolltrigger',
+            'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
+            array('gsap'),
             '3.12.5',
             true
         );
@@ -130,19 +155,20 @@ class Orbit_Customs
                 if (isset($widget_config['assets']['css'])) {
                     wp_register_style(
                         $widget_id,
-                        ORBIT_CUSTOMS_PLUGIN_URL . 'includes/' . $widget_config['assets']['css'],
+                        EPW_JDT_PLUGIN_URL . 'includes/' . $widget_config['assets']['css'],
                         array(),
-                        ORBIT_CUSTOMS_VERSION
+                        EPW_JDT_VERSION
                     );
                 }
 
-                // Register JS with GSAP dependency
+                // Register JS with per-widget dependencies
                 if (isset($widget_config['assets']['js'])) {
+                    $js_deps = isset($widget_config['js_deps']) ? $widget_config['js_deps'] : array('jquery', 'gsap');
                     wp_register_script(
                         $widget_id,
-                        ORBIT_CUSTOMS_PLUGIN_URL . 'includes/' . $widget_config['assets']['js'],
-                        array('jquery', 'gsap'),
-                        ORBIT_CUSTOMS_VERSION,
+                        EPW_JDT_PLUGIN_URL . 'includes/' . $widget_config['assets']['js'],
+                        $js_deps,
+                        EPW_JDT_VERSION,
                         true
                     );
                 }
@@ -160,12 +186,12 @@ class Orbit_Customs
         }
 
         foreach ($this->widgets as $widget_id => $widget_config) {
-            $widget_file = ORBIT_CUSTOMS_PLUGIN_DIR . 'includes/' . $widget_config['file'];
+            $widget_file = EPW_JDT_PLUGIN_DIR . 'includes/' . $widget_config['file'];
 
             if (file_exists($widget_file)) {
                 require_once $widget_file;
 
-                $class_name = '\\Orbit_Customs\\' . $widget_config['class'];
+                $class_name = '\\EPW_JDT\\' . $widget_config['class'];
                 if (class_exists($class_name)) {
                     $widgets_manager->register(new $class_name());
                 }
@@ -185,10 +211,10 @@ class Orbit_Customs
 /**
  * Initialize the plugin
  */
-function orbit_customs_init()
+function epw_jdt_init()
 {
-    return Orbit_Customs::get_instance();
+    return EPW_JDT::get_instance();
 }
 
 // Start the plugin
-orbit_customs_init();
+epw_jdt_init();

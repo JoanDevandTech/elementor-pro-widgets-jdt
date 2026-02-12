@@ -1,0 +1,121 @@
+/**
+ * Custom Zoom Gallery Styles
+ */
+
+/* ========================================
+   CONTAINER
+   ======================================== */
+.epw-zoom-container {
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+    width: 100%;
+}
+
+.epw-zoom-inner {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========================================
+   GALLERY ITEMS
+   ======================================== */
+.epw-zoom-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform, opacity;
+}
+
+.epw-zoom-item img {
+    max-width: 800px;
+    width: 90%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+/* ========================================
+   TITLE OVERLAY
+   ======================================== */
+.epw-zoom-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 2rem 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    pointer-events: none;
+}
+
+/* ========================================
+   CTA BUTTON
+   ======================================== */
+.epw-zoom-cta {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 0.3s ease, border-color 0.3s ease;
+    white-space: nowrap;
+    z-index: 5;
+}
+
+.epw-zoom-cta:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+    .epw-zoom-item img {
+        max-width: 95%;
+        border-radius: 4px;
+    }
+
+    .epw-zoom-title {
+        font-size: 1.1rem;
+        padding: 1.5rem 1rem 1rem;
+    }
+
+    .epw-zoom-cta {
+        bottom: 1.5rem;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    .epw-zoom-item {
+        will-change: auto;
+    }
+}

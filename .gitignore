@@ -2,6 +2,15 @@
 .DS_Store
 Thumbs.db
 
+# Git internals
+.git/
+
+# Claude Code
+.claude/
+
+# Demo (local testing only)
+demo.html
+
 # IDE
 .vscode/
 .idea/
