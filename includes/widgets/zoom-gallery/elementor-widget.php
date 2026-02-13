@@ -225,26 +225,15 @@ class Elementor_Zoom_Gallery_Widget extends \Elementor\Widget_Base
         );
 
         $this->add_control(
-            'scale_start',
+            'max_width',
             array(
-                'label' => __('Scale Start', 'epw-jdt'),
+                'label' => __('Max Width on Zoom (px)', 'epw-jdt'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
-                'min' => 0.5,
-                'max' => 3,
-                'step' => 0.1,
-                'default' => 1,
-            )
-        );
-
-        $this->add_control(
-            'scale_end',
-            array(
-                'label' => __('Scale End', 'epw-jdt'),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'min' => 1,
-                'max' => 5,
-                'step' => 0.1,
-                'default' => 2.5,
+                'min' => 200,
+                'max' => 1600,
+                'step' => 10,
+                'default' => 500,
+                'description' => __('Maximum image width when fully zoomed before disappearing.', 'epw-jdt'),
             )
         );
 
@@ -256,7 +245,7 @@ class Elementor_Zoom_Gallery_Widget extends \Elementor\Widget_Base
                 'min' => 0,
                 'max' => 1,
                 'step' => 0.05,
-                'default' => 0.6,
+                'default' => 0.5,
             )
         );
 
@@ -353,33 +342,6 @@ class Elementor_Zoom_Gallery_Widget extends \Elementor\Widget_Base
             array(
                 'name' => 'image_shadow',
                 'selector' => '{{WRAPPER}} .epw-zoom-item img',
-            )
-        );
-
-        $this->add_responsive_control(
-            'image_max_width',
-            array(
-                'label' => __('Max Width', 'epw-jdt'),
-                'type' => \Elementor\Controls_Manager::SLIDER,
-                'size_units' => array('px', '%', 'vw'),
-                'range' => array(
-                    'px' => array(
-                        'min' => 200,
-                        'max' => 1600,
-                        'step' => 10,
-                    ),
-                    '%' => array(
-                        'min' => 20,
-                        'max' => 100,
-                    ),
-                ),
-                'default' => array(
-                    'unit' => 'px',
-                    'size' => 800,
-                ),
-                'selectors' => array(
-                    '{{WRAPPER}} .epw-zoom-item img' => 'max-width: {{SIZE}}{{UNIT}};',
-                ),
             )
         );
 
@@ -565,9 +527,8 @@ class Elementor_Zoom_Gallery_Widget extends \Elementor\Widget_Base
         $gallery_config = array(
             'scrub' => 'yes' === $settings['enable_scrub'],
             'pin' => 'yes' === $settings['enable_pin'],
-            'scaleStart' => !empty($settings['scale_start']) ? (float) $settings['scale_start'] : 1,
-            'scaleEnd' => !empty($settings['scale_end']) ? (float) $settings['scale_end'] : 2.5,
-            'fadeStart' => isset($settings['fade_start']) ? (float) $settings['fade_start'] : 0.6,
+            'maxWidth' => !empty($settings['max_width']) ? (float) $settings['max_width'] : 500,
+            'fadeStart' => isset($settings['fade_start']) ? (float) $settings['fade_start'] : 0.5,
         );
 
         $total_items = count($items);

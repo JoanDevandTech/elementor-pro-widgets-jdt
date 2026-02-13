@@ -1,6 +1,9 @@
 /**
- * Custom Zoom Gallery - GSAP ScrollTrigger
- * Images stacked front-to-back; scroll scales up + fades out the front image.
+ * Custom Zoom Gallery – GSAP ScrollTrigger
+ *
+ * Stack effect: images are piled with random rotations/offsets.
+ * On scroll each card straightens, scales up to a max size,
+ * then fades out to reveal the next one.
  */
 
 (function () {
@@ -8,169 +11,184 @@
 
 	gsap.registerPlugin(ScrollTrigger);
 
-	/* Guard: track initialized containers to prevent double init */
-	const initializedContainers = new WeakSet();
+	/** Prevent double-init */
+	const initialized = new WeakSet();
 
 	/**
-	 * Zoom Gallery Controller
+	 * Deterministic pseudo-random per index so the "messy" look
+	 * is the same on every load but still looks organic.
 	 */
+	function seededRandom(index) {
+		const x = Math.sin(index * 127.1 + 311.7) * 43758.5453;
+		return x - Math.floor(x);            // 0 … 1
+	}
+
+	/**
+	 * Build a rotation + offset preset for each card.
+	 * Alternates left / center / right with slight Y nudges.
+	 */
+	function cardTransform(index) {
+		const r = seededRandom(index);
+		const rotation = (r - 0.5) * 24;        // –12 … +12 deg
+		const xOffset  = (seededRandom(index + 50) - 0.5) * 40;  // –20 … +20 px
+		const yOffset  = (seededRandom(index + 99) - 0.5) * 30;  // –15 … +15 px
+		return { rotation, xOffset, yOffset };
+	}
+
+	/* ================================================
+	   Controller
+	   ================================================ */
 	class EpwZoomGalleryController {
 		constructor(container) {
-			/* Prevent double initialization */
-			if (initializedContainers.has(container)) {
-				return;
-			}
-			initializedContainers.add(container);
+			if (initialized.has(container)) return;
+			initialized.add(container);
 
 			this.container = container;
-			this.inner = container.querySelector('.epw-zoom-inner');
-			this.items = gsap.utils.toArray(container.querySelectorAll('.epw-zoom-item'));
+			this.inner     = container.querySelector('.epw-zoom-inner');
+			this.items     = gsap.utils.toArray(container.querySelectorAll('.epw-zoom-item'));
 
-			if (this.items.length < 2) {
-				return;
-			}
+			if (this.items.length < 2) return;
 
-			/* Read config from data attribute */
-			const configAttr = container.getAttribute('data-gallery-config');
-			this.config = configAttr ? JSON.parse(configAttr) : {};
-			this.config.scrub = this.config.scrub !== false;
-			this.config.pin = this.config.pin !== false;
-			this.config.scaleStart = parseFloat(this.config.scaleStart) || 1;
-			this.config.scaleEnd = parseFloat(this.config.scaleEnd) || 2.5;
-			this.config.fadeStart = parseFloat(this.config.fadeStart) || 0.6;
+			/* Config from data-attribute (PHP / shortcode) */
+			const raw = container.getAttribute('data-gallery-config');
+			const cfg = raw ? JSON.parse(raw) : {};
+			this.cfg = {
+				scrub     : cfg.scrub !== false,
+				pin       : cfg.pin   !== false,
+				maxWidth  : parseFloat(cfg.maxWidth)  || 500,
+				fadeStart : parseFloat(cfg.fadeStart)  || 0.5,
+			};
 
-			/* Respect reduced motion */
 			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-				this.setupReducedMotion();
+				this.reducedMotion();
 				return;
 			}
 
-			this.init();
+			this.build();
 		}
 
-		init() {
-			const itemCount = this.items.length;
-			const { scaleStart, scaleEnd, fadeStart, scrub, pin } = this.config;
+		/* ---------- animation ---------- */
+		build() {
+			const { items, cfg } = this;
+			const n = items.length;
 
-			/* Set initial state: all items stacked, first on top */
-			this.items.forEach((item, i) => {
+			/* 1. Set initial "messy stack" state */
+			items.forEach((item, i) => {
+				const t = cardTransform(i);
 				gsap.set(item, {
-					scale: scaleStart,
-					opacity: 1,
-					zIndex: itemCount - i
+					scale    : 1,
+					opacity  : 1,
+					rotation : t.rotation,
+					x        : t.xOffset,
+					y        : t.yOffset,
+					zIndex   : n - i,          // first on top
 				});
 			});
 
-			/*
-			 * Use a function for `end` so invalidateOnRefresh recalculates
-			 * on resize / orientation change. Each image gets 100vh of scroll.
-			 */
-			const scrollVh = (itemCount - 1) * 100;
-
+			/* 2. ScrollTrigger timeline — each card gets 100 vh of scroll */
 			const tl = gsap.timeline({
 				scrollTrigger: {
-					trigger: this.container,
-					start: 'top top',
-					end: () => '+=' + (scrollVh * window.innerHeight / 100),
-					scrub: scrub ? 1 : false,
-					pin: pin ? this.inner : false,
-					anticipatePin: 1,
+					trigger            : this.container,
+					start              : 'top top',
+					end                : () => '+=' + ((n - 1) * window.innerHeight),
+					scrub              : this.cfg.scrub ? 1 : false,
+					pin                : this.cfg.pin ? this.inner : false,
+					anticipatePin      : 1,
 					invalidateOnRefresh: true,
 				}
 			});
 
-			/*
-			 * Animate each item except the last (it stays visible).
-			 * fadeStart controls when opacity begins fading within each
-			 * item's segment: 0 = immediate fade, 0.6 = fade after 60%.
-			 */
-			this.items.forEach((item, i) => {
-				if (i === itemCount - 1) return;
+			/* 3. Animate every card except the last (it stays visible) */
+			items.forEach((item, i) => {
+				if (i === n - 1) return;
 
-				const segStart = i / (itemCount - 1);
-				const segDuration = 1 / (itemCount - 1);
+				const img       = item.querySelector('img');
+				const segStart  = i / (n - 1);
+				const segDur    = 1 / (n - 1);
 
-				/* Scale runs the full segment */
+				/*
+				 * Phase A (0 → fadeStart of segment):
+				 *   straighten rotation, center x/y, scale img up to maxWidth
+				 * Phase B (fadeStart → end of segment):
+				 *   fade out + continue scaling slightly
+				 */
+				const phaseA = segDur * cfg.fadeStart;
+				const phaseB = segDur * (1 - cfg.fadeStart);
+
+				/* Scale ratio: from natural size to maxWidth */
+				const naturalW  = img ? img.naturalWidth || img.offsetWidth || 260 : 260;
+				const scaleGoal = Math.max(cfg.maxWidth / Math.max(naturalW, 1), 1);
+
+				// Phase A — straighten & grow
 				tl.to(item, {
-					scale: scaleEnd,
-					duration: segDuration,
-					ease: 'none',
+					rotation : 0,
+					x        : 0,
+					y        : 0,
+					scale    : scaleGoal,
+					duration : phaseA,
+					ease     : 'power2.out',
 				}, segStart);
 
-				/* Opacity fades after fadeStart fraction of the segment */
-				const fadeDelay = segDuration * fadeStart;
-				const fadeDuration = segDuration * (1 - fadeStart);
-
+				// Phase B — fade out & grow a bit more
 				tl.to(item, {
-					opacity: 0,
-					duration: fadeDuration,
-					ease: 'power1.in',
-				}, segStart + fadeDelay);
+					opacity  : 0,
+					scale    : scaleGoal * 1.15,
+					duration : phaseB,
+					ease     : 'power1.in',
+				}, segStart + phaseA);
 			});
 		}
 
-		setupReducedMotion() {
-			/* Show only first image, hide others */
+		/* ---------- a11y fallback ---------- */
+		reducedMotion() {
 			this.items.forEach((item, i) => {
-				if (i > 0) {
-					gsap.set(item, { opacity: 0 });
-				}
+				gsap.set(item, { opacity: i === 0 ? 1 : 0 });
 			});
 		}
 
+		/* ---------- teardown ---------- */
 		destroy() {
 			ScrollTrigger.getAll().forEach(st => {
-				if (st.trigger === this.container) {
-					st.kill();
-				}
+				if (st.trigger === this.container) st.kill();
 			});
-			initializedContainers.delete(this.container);
+			initialized.delete(this.container);
 		}
 	}
 
-	/**
-	 * Initialize all Zoom Gallery instances
-	 */
-	function initEpwZoomGalleries() {
-		const containers = document.querySelectorAll('.epw-zoom-container');
-		containers.forEach(container => {
-			new EpwZoomGalleryController(container);
+	/* ================================================
+	   Bootstrap
+	   ================================================ */
+	function initAll() {
+		document.querySelectorAll('.epw-zoom-container').forEach(c => {
+			new EpwZoomGalleryController(c);
 		});
 	}
 
-	/* Initialize on DOM ready */
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initEpwZoomGalleries);
+		document.addEventListener('DOMContentLoaded', initAll);
 	} else {
-		initEpwZoomGalleries();
+		initAll();
 	}
 
-	/*
-	 * Elementor frontend support (single registration).
-	 * We use a flag to avoid registering the hook twice.
-	 */
-	function registerElementorHook() {
-		if (typeof window.elementorFrontend !== 'undefined' && window.elementorFrontend.hooks) {
+	/* Elementor front-end (single registration) */
+	function registerElementor() {
+		if (window.elementorFrontend?.hooks) {
 			window.elementorFrontend.hooks.addAction(
 				'frontend/element_ready/zoom-gallery.default',
 				function ($scope) {
-					const container = $scope[0].querySelector('.epw-zoom-container');
-					if (container) {
-						/* Remove from WeakSet so re-init works after Elementor re-render */
-						initializedContainers.delete(container);
-						new EpwZoomGalleryController(container);
+					const c = $scope[0].querySelector('.epw-zoom-container');
+					if (c) {
+						initialized.delete(c);          // allow re-init after edit
+						new EpwZoomGalleryController(c);
 					}
 				}
 			);
 		}
 	}
 
-	/* Try immediate registration (editor already loaded) */
-	registerElementorHook();
+	registerElementor();
 
-	/* Also register on init event for fresh page loads */
 	if (typeof jQuery !== 'undefined') {
-		jQuery(window).on('elementor/frontend/init', registerElementorHook);
+		jQuery(window).on('elementor/frontend/init', registerElementor);
 	}
-
 })();

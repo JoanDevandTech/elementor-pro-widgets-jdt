@@ -72,9 +72,8 @@ function epw_jdt_zoom_gallery_shortcode($atts)
     $gallery_config = array(
         'scrub' => true,
         'pin' => true,
-        'scaleStart' => 1,
-        'scaleEnd' => 2.5,
-        'fadeStart' => 0.6,
+        'maxWidth' => 500,
+        'fadeStart' => 0.5,
     );
 
     // Start output buffering

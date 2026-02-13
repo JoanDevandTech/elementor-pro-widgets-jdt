@@ -4,41 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polaroid Tabs - Demo</title>
+    <title>EPW JDT - Demo</title>
 
     <!-- Polaroid Tabs CSS -->
     <link rel="stylesheet" href="includes/widgets/jdt-tabs/assets/jdt-tabs.css">
+
+    <!-- Zoom Gallery CSS -->
+    <link rel="stylesheet" href="includes/widgets/zoom-gallery/assets/zoom-gallery.css">
 
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: #000;
-            /* Fallback para navegadores que no soportan gradientes */
             background:
                 radial-gradient(circle at 27% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%),
                 radial-gradient(circle at 99% 33%, rgba(169, 1, 219, 1) 0%, rgba(169, 1, 219, 0) 80%),
-                /* Morado */
                 radial-gradient(circle at 99% 45%, rgba(88, 20, 225, 1) 0%, rgba(88, 20, 225, 0) 80%),
-                /* Azul */
                 radial-gradient(circle at 57% 21%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%),
                 radial-gradient(circle at 61% 36%, rgba(169, 1, 219, 1) 0%, rgba(169, 1, 219, 0) 80%),
-                /* Morado */
                 radial-gradient(circle at 32% 17%, rgba(88, 20, 225, 1) 0%, rgba(88, 20, 225, 0) 80%),
-                /* Azul */
                 radial-gradient(circle at 48% 33%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%),
                 radial-gradient(circle at 29% 84%, rgba(169, 1, 219, 1) 0%, rgba(169, 1, 219, 0) 80%),
-                /* Morado */
                 radial-gradient(circle at 29% 76%, rgba(88, 20, 225, 1) 0%, rgba(88, 20, 225, 0) 80%),
-                /* Azul */
                 radial-gradient(circle at 80% 83%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%),
                 radial-gradient(circle at 27% 13%, rgba(169, 1, 219, 1) 0%, rgba(169, 1, 219, 0) 80%);
-            /* Morado */
             background-attachment: fixed;
-            /* Mantiene el fondo fijo al hacer scroll */
             background-size: cover;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
             margin: 0;
+        }
+
+        .demo-section {
+            padding: 20px;
         }
 
         h1 {
@@ -47,72 +45,126 @@
             margin-bottom: 20px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
+
+        h2 {
+            text-align: center;
+            color: white;
+            margin: 40px 0 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Simulates the Elementor section / container that wraps the widget */
+        #widget-gallery {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .spacer {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Joan Dev & Tech | Polaroid Tabs</h1>
 
-    <!-- Polaroid Tabs Widget -->
-    <div class="epw-tabs-container" id="demo-tabs">
-        <div class="epw-tabs-wrapper">
+    <div class="demo-section">
+        <h1>Joan Dev & Tech | Widgets Demo</h1>
+    </div>
 
-            <!-- Left Column Tabs -->
-            <div class="epw-tabs-left" role="tablist" aria-label="Tabs Navigation">
-                <button class="epw-tab-button" role="tab" aria-selected="true" tabindex="0">
-                    Services
-                </button>
-                <button class="epw-tab-button" role="tab" aria-selected="false" tabindex="-1">
-                    Projects
-                </button>
-            </div>
+    <!-- ============================================================
+         ZOOM GALLERY DEMO
+         ============================================================ -->
+    <div class="spacer">Scroll down for Zoom Gallery</div>
 
-            <!-- Central Stage (Carousel) - SINGLE STACK FOR ALL IMAGES -->
-            <div class="epw-tabs-stage">
-                <div class="epw-polaroid-stack">
-                    <!-- Image 1 -->
-                    <div class="epw-polaroid">
-                        <img src="https://picsum.photos/400/500?random=1" alt="Creative Design">
-                        <a href="#" class="epw-polaroid-cta">View Project</a>
-                    </div>
-
-                    <!-- Image 2 -->
-                    <div class="epw-polaroid">
-                        <img src="https://picsum.photos/400/500?random=2" alt="Development">
-                        <a href="#" class="epw-polaroid-cta">Learn More</a>
-                    </div>
-
-                    <!-- Image 3 -->
-                    <div class="epw-polaroid">
-                        <img src="https://picsum.photos/400/500?random=3" alt="Marketing">
-                        <a href="#" class="epw-polaroid-cta">Explore</a>
-                    </div>
-
-                    <!-- Image 4 -->
-                    <div class="epw-polaroid">
-                        <img src="https://picsum.photos/400/500?random=4" alt="Photography">
-                        <a href="#" class="epw-polaroid-cta">Gallery</a>
-                    </div>
+    <div id="widget-gallery">
+        <div class="epw-zoom-container" data-gallery-config='{"scrub":true,"pin":true,"maxWidth":500,"fadeStart":0.5}'>
+            <div class="epw-zoom-inner">
+                <div class="epw-zoom-item" style="z-index:6;" data-index="0">
+                    <img src="https://picsum.photos/400/500?random=10" alt="Image 1">
+                </div>
+                <div class="epw-zoom-item" style="z-index:5;" data-index="1">
+                    <img src="https://picsum.photos/400/500?random=11" alt="Image 2">
+                </div>
+                <div class="epw-zoom-item" style="z-index:4;" data-index="2">
+                    <img src="https://picsum.photos/400/500?random=12" alt="Image 3">
+                </div>
+                <div class="epw-zoom-item" style="z-index:3;" data-index="3">
+                    <img src="https://picsum.photos/400/500?random=13" alt="Image 4">
+                </div>
+                <div class="epw-zoom-item" style="z-index:2;" data-index="4">
+                    <img src="https://picsum.photos/400/500?random=14" alt="Image 5">
+                </div>
+                <div class="epw-zoom-item" style="z-index:1;" data-index="5">
+                    <img src="https://picsum.photos/400/500?random=15" alt="Image 6">
                 </div>
             </div>
-
-            <!-- Right Column Tabs -->
-            <div class="epw-tabs-right" role="tablist" aria-label="Tabs Navigation">
-                <button class="epw-tab-button" role="tab" aria-selected="false" tabindex="-1">
-                    Marketing
-                </button>
-                <button class="epw-tab-button" role="tab" aria-selected="false" tabindex="-1">
-                    Development
-                </button>
-            </div>
-
         </div>
     </div>
 
-    <!-- GSAP Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <div class="spacer">End of gallery</div>
 
-    <!-- Polaroid Tabs JS -->
+    <!-- ============================================================
+         POLAROID TABS DEMO
+         ============================================================ -->
+    <div class="demo-section">
+        <h2>Polaroid Tabs</h2>
+
+        <div class="epw-tabs-container" id="demo-tabs">
+            <div class="epw-tabs-wrapper">
+                <div class="epw-tabs-left" role="tablist" aria-label="Tabs Navigation">
+                    <button class="epw-tab-button" role="tab" aria-selected="true" tabindex="0">
+                        Services
+                    </button>
+                    <button class="epw-tab-button" role="tab" aria-selected="false" tabindex="-1">
+                        Projects
+                    </button>
+                </div>
+
+                <div class="epw-tabs-stage">
+                    <div class="epw-polaroid-stack">
+                        <div class="epw-polaroid">
+                            <img src="https://picsum.photos/400/500?random=1" alt="Creative Design">
+                            <a href="#" class="epw-polaroid-cta">View Project</a>
+                        </div>
+                        <div class="epw-polaroid">
+                            <img src="https://picsum.photos/400/500?random=2" alt="Development">
+                            <a href="#" class="epw-polaroid-cta">Learn More</a>
+                        </div>
+                        <div class="epw-polaroid">
+                            <img src="https://picsum.photos/400/500?random=3" alt="Marketing">
+                            <a href="#" class="epw-polaroid-cta">Explore</a>
+                        </div>
+                        <div class="epw-polaroid">
+                            <img src="https://picsum.photos/400/500?random=4" alt="Photography">
+                            <a href="#" class="epw-polaroid-cta">Gallery</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="epw-tabs-right" role="tablist" aria-label="Tabs Navigation">
+                    <button class="epw-tab-button" role="tab" aria-selected="false" tabindex="-1">
+                        Marketing
+                    </button>
+                    <button class="epw-tab-button" role="tab" aria-selected="false" tabindex="-1">
+                        Development
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Widget JS -->
+    <script src="includes/widgets/zoom-gallery/assets/zoom-gallery.js"></script>
     <script src="includes/widgets/jdt-tabs/assets/jdt-tabs.js"></script>
 </body>
 
