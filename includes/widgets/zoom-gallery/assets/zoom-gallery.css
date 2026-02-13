@@ -4,12 +4,11 @@
  */
 
 /* ========================================
-   CONTAINER — stays within its parent
+   CONTAINER
    ======================================== */
 .epw-zoom-container {
     position: relative;
     width: 100%;
-    overflow: hidden;
     background-color: #000;
 }
 
@@ -36,7 +35,8 @@
 .epw-zoom-item img {
     display: block;
     max-width: 260px;
-    width: 100%;
+    max-height: 80%;
+    width: auto;
     height: auto;
     object-fit: contain;
     border-radius: 8px;

@@ -4,7 +4,7 @@
  * Plugin URI: https://joandev.com/epw-jdt
  * Description: Custom visual components including Polaroid Tabs, Custom Zoom Gallery and Elementor integration
  * Author: Joan Dev & Tech
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author URI: https://joandev.com
  * Text Domain: epw-jdt
  * License: GPLv2 or later
